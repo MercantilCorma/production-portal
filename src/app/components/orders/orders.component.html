@@ -1,0 +1,249 @@
+<!-- <p>orders works!</p> -->
+<app-nav></app-nav>
+<hr>
+<div class="">
+  <h1 style="text-align: center; ">Orden de Producción</h1>
+</div>
+<hr>
+<!-- <div class="container col-md-12 mb-3">
+  <div class="form-row">
+    <p class="link col-md-3 mb3 text-success">FO-PRO-01/R4</p>
+    <p class="link col-md-3 mb3 text-success">OP: Folio de la Orden</p>
+    <p class="link col-md-3 mb3 text-success">Fecha de Elaboración: {{now|date:'dd-MM-yyyy'}}</p>
+  </div>
+</div>
+<hr>
+<div class="container col-md-12 mb-3">
+  <h5 class="text-info" style="text-align: left;">Datos del Cliente</h5>
+</div> -->
+<div class=" col-md-12 mb-3">
+  <form class="needs-validation" [formGroup]="miForm">
+    <div class=" col-md-12 mb-3">
+      <div class="form-row">
+        <p class="link col-md-2 mb3 text-success">FO-PRO-01/R4</p>
+        <!-- <p class="link col-md-3 mb3 text-success">OP: Folio de la Orden</p> -->
+        <p class="link col-md-3 mb3 text-success" >Fecha de Elaboración: {{now|date:'dd-MM-yyyy'}}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="">
+      <h5 class="text-info" style="text-align: left;">Datos del Cliente</h5>
+    </div>
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Nombre del Cliente</label>
+        <select class="form-select" formControlName="nombre_cliente">
+          <option value="">Selecciona el Cliente</option>
+          <option *ngFor="let client of clienteselect"
+                  [value]="client">{{client}}</option>
+        </select>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Ciudad / Estado</label>
+        <select class="form-select" formControlName="ciudad">
+          <option value="">Selecciona la Ciudad</option>
+          <option *ngFor="let estado of ciudades"
+                  [value]="estado.city">{{estado.city}}</option>
+        </select>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Planta / Sucursal</label>
+        <select class="form-select" formControlName="sucursal">
+          <option value="">Selecciona la Planta</option>
+          <option *ngFor="let sucursal of plantas"
+                  [value]="sucursal.plant" #res2>{{sucursal.plant}}</option>
+
+          <option *ngFor="let sucursal of plantas"
+                  [value]="sucursal.plant2">{{sucursal.plant2}}</option>
+        </select>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Fecha de Entrega</label>
+        <input type="date" class="form-control" formControlName="fecha_entrega">
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Semana de Entrega</label>
+        <input type="number" min="0" class="form-control" placeholder="Semana de Entrega" formControlName="sem_entrega">
+      </div>
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Orden de Producción</label>
+        <input type="text" [(ngModel)]="foliodeprueba"  class="form-control" formControlName="ordenpro">
+      </div>
+    </div>
+
+    <div class="">
+      <h5 class="text-info" style="text-align: left;">Información General</h5>
+    </div>
+
+    <div class="form-row" >
+
+      <div class="col-md-1 mb-3" *ngFor="let info of inputss">
+        <label class="text-success">No. Articulo</label>
+        <input type="text" [(ngModel)]="info.articulo"  class="form-control" formControlName="num_articulo" readonly>
+      </div>
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">No. de Parte</label>
+        <select class="form-select" formControlName="num_parte">
+          <option value="">Selecciona la Parte</option>
+          <option *ngFor="let prt of partes"
+                  [value]="prt.no_parte">{{prt.no_parte}}</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3" *ngFor="let info of inputss" >
+        <label  class="text-success">Descripción</label>
+        <input  type="text" [(ngModel)]="info.descrip"  class="form-control" formControlName="descripcion" readonly>
+      </div>
+
+      <div class="col-md-2 mb-3" *ngFor="let info of inputss">
+        <label class="text-success">No. Orden de Compra </label>
+        <input type="text" [(ngModel)]="info.no_orden"  class="form-control" formControlName="num_orden_com" readonly>
+      </div>
+    </div>
+
+    <div class="form-row" *ngFor="let info of inputss">
+      <div class="col-md-12 mb-3">
+        <h5 class="text-info" style="text-align: left;">Información de Folio</h5>
+      </div>
+
+      <div class="col-md-1 mb-3">
+        <label class="text-success">Clave</label>
+        <input type="text" [(ngModel)]="info.clave"class="form-control" formControlName="clave" readonly>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Medida (cm)</label>
+        <input type="text" [(ngModel)]="info.medida"  class="form-control" formControlName="medida" readonly>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Pzas X Medida</label>
+        <input type="text" [(ngModel)]="info.pieza_medida"  class="form-control" formControlName="pieza_medida" readonly>
+      </div>
+    </div>
+    <div class=" col-md-12 mb-3">
+      <h5 class="text-info" style="text-align: left;"></h5>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Cantidad</label>
+        <input type="number" min="0" [(ngModel)]="cantidad2" class="form-control" formControlName="cantidad">
+      </div>
+      <div class="col-md-2 mb-3" *ngFor="let info of inputss">
+        <label class="text-success">Stock</label>
+        <input type="number" [(ngModel)]="info.stock" class="form-control" formControlName="stock" readonly>
+      </div>
+    <div class="col-md-2 mb-3">
+        <label class="text-success">Hojas a Cortar</label>
+        <input type="text" [(ngModel)]="hojas_cortar" class="form-control" formControlName="hojas_cortar" readonly>
+      </div>
+        <div class="col-md-2 mb-3">
+        <label class="text-success">No. de Paquetes</label>
+        <input type="text" [(ngModel)]="num_paquetes" class="form-control" formControlName="num_paquetes" readonly>
+      </div>
+      <div class="col-md-2 mb-3" *ngFor="let info of inputss">
+        <label class="text-success">Piezas por caja</label>
+        <input type="text" [(ngModel)]="info.pieza_caja" class="form-control" formControlName="piezas_caja" readonly>
+      </div>
+     <div class="col-md-2 mb-3">
+        <label class="text-success">Cajas a Utilizar</label>
+        <input type="text" [(ngModel)]="cajas_utilizar" class="form-control" formControlName="cajas_utilizar" readonly>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <button class="btn btn-primary" type="submit" (click)="Calcular()">Validar Información</button>
+      </div>
+
+      <div class="text-right col-md-6 mb-3">
+        <button class="btn btn-primary" type="submit" (click)="PostOrdenPro()" [disabled]="!miForm.valid">Insertar Orden</button>
+      </div>
+    </div>
+        <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elaboro">
+  </form>
+
+<!--     <h3>Respuestas Formulario</h3>
+  <pre>Valid:{{miForm.valid}}</pre>
+  <pre>{{miForm.value | json}}</pre> -->
+<!--   <label class="text-success">Prueba Total</label>
+  <input type="text" [(ngModel)]="total" class="form-control" formControlName="totalprueba"> -->
+</div>
+<div class="table-responsive">
+  <table *ngIf="num" class="table table-hover table-bordered table-responsive-sm" style="font-size: .9em;">
+    <thead class="table-primary" >
+      <th>No. de Articulo</th>
+      <th>No. de Parte</th>
+      <th>Descripción</th>
+      <th>No. de Orden de Compra</th>
+      <th>Clave</th>
+      <th>Medida (cm)</th>
+      <th>Piezas X Medida</th>
+      <th>Hojas a Cortar</th>
+      <th>No. de Paquetes</th>
+      <th>Cantidad</th>
+      <th>Piezas X Caja</th>
+      <th>cajas a Utilizar</th>
+      <!-- <th>Piezas en Stock</th> -->
+      <th>Acciones</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let information of clientesServices.infoOrders" style="font-size: .9em;">
+        <td>{{information.num_articulo}}</td>
+        <td>{{information.num_parte}}</td>
+        <td>{{information.descripcion}}</td>
+        <td>{{information.num_orden_com}}</td>
+        <td>{{information.clave}}</td>
+        <td>{{information.medida}}</td>
+        <td>{{information.pieza_medida}}</td>
+        <td>{{information.hojas_cortar}}</td>
+        <td>{{information.num_paquetes}}</td>
+        <td>{{information.cantidad}}</td>
+        <td>{{information.piezas_caja}}</td>
+        <td>{{information.cajas_utilizar}}</td>
+        <!-- <td>{{information.stock}}</td> -->
+
+        <td><button class="btn btn-danger btn-sm" (click)="delateinfo(information.id_order,information.cantidad,information.num_parte,information.stock)">Eliminar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class=" col-md-12 mb-3">
+  <form [formGroup]="miForm2">
+    <input type="hidden" class="form-control" [(ngModel)]="orden_produccion" formControlName="no_orden">
+    <div class="mb-0 row container">
+      <label for="staticEmail" class="col-sm-0 col-form-label text-success">Total:</label>
+      <div class="col-sm-2">
+        <input type="number" min="0" [(ngModel)]="total" readonly class="form-control-plaintext" formControlName="total" readonly>
+      </div>
+    </div>
+    <div class="mb-0 row container">
+      <label for="staticEmail" class="col-sm-0 col-form-label text-success">Peso Bruto:</label>
+      <div class="col-sm-2">
+        <input type="number" min="0" [(ngModel)]="peso_bruto" readonly class="form-control-plaintext" formControlName="peso_bruto" readonly>
+      </div>
+    </div>
+    <div class="mb-0 row container">
+      <label for="staticEmail" class="col-sm-0 col-form-label text-success">Peso Neto:</label>
+      <div class="col-sm-2">
+        <input type="number" min="0" [(ngModel)]="peso_neto" readonly class="form-control-plaintext" formControlName="peso_neto" readonly>
+      </div>
+    </div>
+    <div class="mb-0 row container">
+      <label for="staticEmail" class="col-sm-0 col-form-label text-success">Total de Cajas</label>
+      <div class="col-sm-2">
+        <input type="number" min="0" [(ngModel)]="total_cajas" readonly class="form-control-plaintext" formControlName="total_cajas" readonly>
+      </div>
+    </div>
+    <div class="mb-0 row container">
+      <button class="btn btn-primary" type="submit" (click)="postcalculations()"[disabled]="!miForm2.valid">Finalizar Orden</button>
+    </div>
+  </form>
+<!--        <h3>Respuestas Formulario</h3>
+  <pre>Valid:{{miForm.valid}}</pre>
+  <pre>{{miForm.value | json}}</pre> -->
+</div>
+
+
+

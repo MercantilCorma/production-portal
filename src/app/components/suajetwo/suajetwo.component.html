@@ -1,0 +1,175 @@
+<!-- <p>suaje works!</p> -->
+
+<app-nav></app-nav>
+
+<div class="">
+  <h1 style="text-align: center">Bitácora de Operación</h1>
+  <h3 style="text-align: center">Máquina: Suajadora</h3>
+  <!-- <h4 style="text-align: center;">Orden de Producción: <a style="color: #33C4A8; pointer-events: none;" href="">{{ordenpro}}</a></h4> -->
+</div>
+<hr>
+<div class=" col-md-12 mb-3">
+  <form class="needs-validation" [formGroup]="miForm">
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Operación</label>
+        <select class="form-select" formControlName="operacion">
+          <option value="">Selecciona la Operación</option>
+          <option>Arranque</option>
+          <option>Paro de Actividad</option>
+          <option>Cambio de Parámetros</option>
+        </select>
+      </div>
+        <input type="hidden" ngModel="{{now|date:'dd-MM-yyyy'}}" class="form-control" formControlName="ordenpro" class="form-control" readonly>
+        <input type="hidden" ngModel="{{now|date:'dd-MM-yyyy'}}" class="form-control" formControlName="fecha" class="form-control" readonly>
+        <input type="hidden" ngModel="{{now|date:'HH:mm:ss'}}" class="form-control" formControlName="hora" readonly>
+        <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="responsable">
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Posición del Potenciómetro</label>
+        <input type="number" min="0" class="form-control" formControlName="posicion">
+      </div>
+
+<!--       <div class="col-md-2 mb-3">
+        <label class="text-success">Velocidad de Hojeo</label>
+        <input type="number" class="form-control" formControlName="velocidad">
+      </div> -->
+
+      <div class="col-md-6 mb-3">
+        <label class="text-success">Observaciones</label>
+        <input type="text" class="form-control" formControlName="observacion">
+      </div>
+    </div>
+<hr>
+    <div class="">
+      <h5 style="text-align: center; color: #33C4A8;">Llenar la siguiente información</h5>
+      <br>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Orden y Limpieza</label>
+        <select class="form-select" formControlName="campo1">
+          <option value="">Orden y Limpieza</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Máquina conectada y encendida</label>
+        <select class="form-select" formControlName="campo2">
+          <option value="">Máquina conectada y encendida</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Máquina en modo especial</label>
+        <select class="form-select" formControlName="campo3">
+          <option value="">Máquina en modo especial</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Altura de brazo 15cm máx</label>
+        <select class="form-select" formControlName="campo4">
+          <option value="">Altura de brazo 15cm máx</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Suajes en buenas condiciones</label>
+        <select class="form-select" formControlName="campo5">
+          <option value="">Suajes en buenas condiciones</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Nylamid sin surcos</label>
+        <select class="form-select" formControlName="campo6">
+          <option value="">Nylamid sin surcos</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Detección de ruidos</label>
+        <select class="form-select" formControlName="campo7">
+          <option value="">Detección de ruidos</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-5 mb-3">
+        <label class="text-success">La primer pieza suajada al iniciar un arranque cumple con la forma y dimensiones de la plantilla de referencia</label>
+        <input type="text" class="form-control" formControlName="campo8">
+      </div>
+
+    </div>
+
+<button class="btn btn-primary" (click)="Postbitsuaje()" >Insertar Datos</button>
+<!-- <button class="btn btn-primary" (click)="Postbitsuaje()" [disabled]="!miForm.valid">Insertar Datos</button> -->
+
+<!--     <h3>Respuestas Formulario</h3>
+  <pre>Valid:{{miForm.valid}}</pre>
+  <pre>{{miForm.value | json}}</pre> -->
+  </form>
+</div>
+
+<div class="table-responsive">
+  <table  class="table table-hover table-bordered table-responsive" style="font-size: .7em;">
+    <thead class="table-primary">
+      <th>Operación</th>
+      <th>Fecha</th>
+      <th>Hora</th>
+      <th>Posición del Potencíometro</th>
+      <th>Orden y Limpieza</th>
+      <th>Máquina Conectada</th>
+      <th>Máquina en modo especial</th>
+      <th>Altura de brazo 15cm máx</th>
+      <th>Suajes en buenas condiciones</th>
+      <th>Nylamid sin surcos</th>
+      <th>Detección de ruidos</th>
+      <th>Al iniciar un arranque cumple con la forma y dimensiones</th>
+      <th>Responsable</th>
+      <th>Observaciones</th>
+      <th>Acción</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let information of clientesServices.infosuaje" style="font-size: .8em;">
+        <td>{{information.operacion}}</td>
+        <td>{{information.fecha}}</td>
+        <td>{{information.hora}}</td>
+        <td>{{information.posicion}}</td>
+        <td>{{information.campo1}}</td>
+        <td>{{information.campo2}}</td>
+        <td>{{information.campo3}}</td>
+        <td>{{information.campo4}}</td>
+        <td>{{information.campo5}}</td>
+        <td>{{information.campo6}}</td>
+        <td>{{information.campo7}}</td>
+        <td>{{information.campo8}}</td>
+        <td>{{information.responsable}}</td>
+        <td>{{information.observacion}}</td>
+        <td><button class="btn btn-danger btn-sm" (click)="delateinfo(information.id_suaje)">Eliminar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  <div class="form-row  col-md-12 mb-3">
+    <div class="col-md-6 mb-3">
+      <button class="btn btn-primary" type="submit" (click)="finalizar()">Finalizar</button>
+    </div>
+<!--     <div class="text-right col-md-6 mb-3">
+      <button class="btn btn-primary" type="submit" (click)="bit2()" target="_blank">Inspección de Suaje</button>
+    </div> -->
+  </div>

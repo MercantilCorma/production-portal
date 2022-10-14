@@ -1,0 +1,152 @@
+<!-- <p>liberacion works!</p> -->
+<app-nav></app-nav>
+<br>
+
+<div class=" col-md-12 mb-3">
+  <form [formGroup]="miForm">
+  <h6 class="text-info" style="text-align: center;">Liberación del producto</h6>
+  <h6 class="text-success" style="text-align: center; color: #33c4a8;">Orden de Producción: {{ordendeproduccion}}</h6>
+  <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elaboro">
+  <input type="hidden" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="ordenpro" />
+      <div class="form-row">
+        <div class="form-check form-check-inline">
+          <label class="form-check-label text-success" for="inlineRadio1">- Cantidad</label>
+        </div>
+      </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="Cumple" formControlName="op1">
+          <label class="form-check-label" for="inlineRadio1">Cumple</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op1">
+          <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+        </div>
+
+      <div class="form-row">
+        <div class="form-check form-check-inline">
+          <label class="form-check-label text-success" for="inlineRadio1">- Empaque </label>
+        </div>
+      </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="Cumple" formControlName="op2">
+          <label class="form-check-label" for="inlineRadio1">Cumple</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op2">
+          <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+        </div>
+
+      <div class="form-row">
+        <div class="form-check form-check-inline">
+          <label class="form-check-label text-success" for="inlineRadio1">- No. de parte</label>
+        </div>
+      </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="Cumple" formControlName="op3">
+          <label class="form-check-label" for="inlineRadio1">Cumple</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op3">
+          <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+        </div>
+
+      <div class="form-row">
+        <div class="form-check form-check-inline">
+          <label class="form-check-label text-success" for="inlineRadio1">- Orden de Producción</label>
+        </div>
+      </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="Cumple" formControlName="op4">
+          <label class="form-check-label" for="inlineRadio1">Cumple</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" value="No Cumple" formControlName="op4">
+          <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+        </div>
+
+      <div class="form-row">
+        <div class="form-check form-check-inline">
+          <label class="form-check-label text-success" for="inlineRadio1">- Etiqueta con el modelo correcto </label>
+        </div>
+      </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="Cumple" formControlName="op5">
+          <label class="form-check-label" for="inlineRadio1">Cumple</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op5">
+          <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+        </div>
+        <br>
+        <br>
+        <div class="form-row" >
+          <div class="col-md-2 mb-3">
+            <label class="text-success">Cajas Aprobadas</label>
+            <input type="number" min="0" class="form-control" formControlName="cajas_apro">
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">Cajas con defecto</label>
+            <input type="number" min="0"   class="form-control" formControlName="cajas_def">
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">total</label>
+            <input type="number" min="0"  class="form-control" formControlName="total">
+          </div>
+        </div>
+      <div class="form-group mb-3">
+        <label for="exampleFormControlTextarea1">Observaciones:</label>
+        <textarea class="form-control" rows="3" formControlName="observaciones"></textarea>
+      </div>
+      <div  class="form-row">
+        <div class="text-left col-md-6">
+         <button class="btn btn-primary" type="submit" (click)="infolibe()" [disabled]="!miForm.valid">Enviar Aspectos</button>
+        </div>
+       </div>
+  </form>
+</div>
+
+<br>
+  <div class="col-md-12 mb-3">
+    <form [formGroup]="miForm3">
+    <h6 class="text-info" style="text-align: center;">Evaluación Final</h6>
+    <p class="text-danger">Nota: Llenar este apartado hasta haber enviado el formulario anterior.</p>
+    <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elaboro">
+    <input type="hidden" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="ordenpro" />
+    <input type="hidden" class="form-control" [(ngModel)]="inspection" formControlName="inspection"/>
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- Producto Conforme</label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="Si" formControlName="op1">
+            <label class="form-check-label" for="inlineRadio1">Si</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="No" formControlName="op1">
+            <label class="form-check-label" for="inlineRadio2">No </label>
+          </div>
+
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- Aplica AC </label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" (click)="checksi()"  value="Si" formControlName="op2">
+            <label class="form-check-label" for="inlineRadio1">Si</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" (click)="checkno()" value="No" formControlName="op2">
+            <label class="form-check-label" for="inlineRadio2">No</label>
+          </div>
+          <div class="form-row">
+          <div *ngIf="num2" class="col-md-2 mb-3"><label class="text-success">Número AC</label><input type="text" class="form-control" placeholder="Número AC" formControlName="AC"/></div>
+        </div>
+          <div  class="form-row">
+          <div class="text-left col-md-6">
+           <button class="btn btn-primary" type="submit" (click)="postSalida2()" [disabled]="!miForm3.valid">Enviar Aspectos</button>
+          </div>
+         </div>
+    </form>
+  </div>

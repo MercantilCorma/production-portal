@@ -1,0 +1,188 @@
+<!-- <p>inspection2 works!</p> -->
+<app-nav></app-nav>
+<br>
+<div class="col-md-12 mb-3">
+  <form class="needs-validation" [formGroup]="miForm2">
+    <input type="hidden" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="ordenpro2" />
+    <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elaboro">
+    <div class="col-md-12 mb-3">
+      <h6 class="text-info" style="text-align: center;">Verificación de Suaje</h6>
+      <h6 class="text-success" style="text-align: center;">Orden de Producción: {{ordendeproduccion}}</h6>
+    </div>
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Número de Parte</label>
+        <select class="form-select" formControlName="num_parte">
+          <option value="">Números de Parte</option>
+          <option *ngFor="let prt of ordersselect"
+          [value]="prt.num_parte">{{prt.num_parte}}</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3" *ngFor="let info of inputss">
+        <label class="text-success">Descripción</label>
+        <input type="text" [(ngModel)]="info.descrip" class="form-control" formControlName="descripcion" readonly/>
+      </div>
+      <div class="col-md-3 mb-3" *ngFor="let info of inputss">
+        <label class="text-success">Número de ayuda visual</label>
+        <input type="text" [(ngModel)]="info.num_visual" class="form-control" formControlName="num_visual" readonly/>
+      </div>
+<!--       <div class="col-md-3 mb-3" *ngFor="let info of inputss">
+        <label class="text-success">Modelo del Folio</label>
+        <input type="text" [(ngModel)]="info.clave" class="form-control" formControlName="modelo" />
+      </div> -->
+    </div>
+
+    <div *ngIf="num" class="form-row">
+      <div class="col-md-12 mb-3">
+        <h6 class="text-info" style="text-align: center;">Largo de la hoja (cm)</h6>
+      </div>
+<!--       <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Inicial" formControlName="inicial"/>  </div>
+      <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Dato 1" formControlName="dato1"/></div>
+      <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Dato 2" formControlName="dato2"/></div>
+      <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Dato 3" formControlName="dato3"/></div>
+      <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Dato 4" formControlName="dato4"/></div>
+      <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Dato 5" formControlName="dato5"/></div>
+      <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Dato 6" formControlName="dato6"/></div>
+      <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Dato 7" formControlName="dato7"/></div>
+      <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Dato 8" formControlName="dato8"/></div>
+      <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Dato 9" formControlName="dato9"/></div>
+      <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Dato 10" formControlName="dato10"/>  </div>
+      <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Observaciones" formControlName="observaciones"/>  </div> -->
+     <div class="col-md-1  mb-3"> <select class="form-select" formControlName="inicial"><option value="">Dato 1</option><option>Cumple</option><option>No Cumple</option></select></div>
+     <div class="col-md-1  mb-3"> <select class="form-select" formControlName="dato1"><option value="">Dato 2</option><option>Cumple</option><option>No Cumple</option></select></div>
+     <div class="col-md-1  mb-3"> <select class="form-select" formControlName="dato2"><option value="">Dato 3</option><option>Cumple</option><option>No Cumple</option></select></div>
+     <div class="col-md-1  mb-3"> <select class="form-select" formControlName="dato3"><option value="">Dato 4</option><option>Cumple</option><option>No Cumple</option></select></div>
+     <div class="col-md-1  mb-3"> <select class="form-select" formControlName="dato4"><option value="">Dato 5</option><option>Cumple</option><option>No Cumple</option></select></div>
+     <div class="col-md-1  mb-3"> <select class="form-select" formControlName="dato5"><option value="">Dato 6</option><option>Cumple</option><option>No Cumple</option></select></div>
+     <div class="col-md-1  mb-3"> <select class="form-select" formControlName="dato6"><option value="">Dato 7</option><option>Cumple</option><option>No Cumple</option></select></div>
+     <div class="col-md-1  mb-3"> <select class="form-select" formControlName="dato7"><option value="">Dato 8</option><option>Cumple</option><option>No Cumple</option></select></div>
+     <div class="col-md-1  mb-3"> <select class="form-select" formControlName="dato8"><option value="">Dato 9</option><option>Cumple</option><option>No Cumple</option></select></div>
+     <div class="col-md-1  mb-3"> <select class="form-select" formControlName="dato9"><option value="">Dato 10</option><option>Cumple</option><option>No Cumple</option></select></div>
+     <div class="col-md-1  mb-3"> <select class="form-select" formControlName="dato10"><option value="">Final</option><option>Cumple</option><option>No Cumple</option></select></div>
+     <div class="col-md-1  mb-3"><input type="text" class="form-control" placeholder="Observaciones" formControlName="observaciones"/>  </div>
+    </div>
+    <div *ngIf="num" class="form-row">
+     <div class="text-left col-md-6">
+      <button class="btn btn-primary" type="submit" (click)="Posinspeccion2()" [disabled]="!miForm2.valid">Insertar Información</button>
+     </div>
+    </div>
+  </form>
+</div>
+<div class="table-responsive">
+<table class="table table-hover table-bordered table-responsive-sm" style="font-size: .7em;" id="excel-table">
+  <tr class="table-primary">
+    <th>Número de Parte</th>
+    <th>Descripción</th>
+    <th>Número de ayuda visual</th>
+    <th>Dato 1</th>
+    <th>Dato 2</th>
+    <th>Dato 3</th>
+    <th>Dato 4</th>
+    <th>Dato 5</th>
+    <th>Dato 6</th>
+    <th>Dato 7</th>
+    <th>Dato 8</th>
+    <th>Dato 9</th>
+    <th>Dato 10</th>
+    <th>Final</th>
+    <th>Observaciones</th>
+    <th>Fecha de Captura</th>
+    <th>Acción</th>
+  </tr>
+    <tr *ngFor="let information of service.info"   style="font-size: .9em;">
+      <td>{{information.num_parte}}</td>
+      <td>{{information.descripcion}}</td>
+      <td>{{information.num_visual}}</td>
+      <td>{{information.inicial}}</td>
+      <td>{{information.dato1}}</td>
+      <td>{{information.dato2}}</td>
+      <td>{{information.dato3}}</td>
+      <td>{{information.dato4}}</td>
+      <td>{{information.dato5}}</td>
+      <td>{{information.dato6}}</td>
+      <td>{{information.dato7}}</td>
+      <td>{{information.dato8}}</td>
+      <td>{{information.dato9}}</td>
+      <td>{{information.dato10}}</td>
+      <td>{{information.observaciones}}</td>
+      <td>{{information.fecha_creacion|date:'medium':'UTC'}}</td>
+      <td><button class="btn btn-danger btn-sm" (click)="delateinfo(information.id)">Eliminar</button></td>
+    </tr>
+</table>
+</div>
+<hr>
+  <div class="col-md-12 mb-3">
+    <form [formGroup]="miForm3">
+      <p class="text-danger">Nota: Llenar este apartado hasta haber terminado de llenar todos los números de Parte.</p>
+    <h6 class="text-info" style="text-align: center;">Aspectos a Vigilar de Suaje</h6>
+    <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elaboro">
+    <input type="hidden" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="ordenpro" />
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- Dimensiones correctas de las hojas</label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="Cumple" formControlName="op1">
+            <label class="form-check-label" for="inlineRadio1">Cumple</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op1">
+            <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+          </div>
+
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- Suaje corresponde al número de parte </label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="Cumple" formControlName="op2">
+            <label class="form-check-label" for="inlineRadio1">Cumple</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op2">
+            <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+          </div>
+
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- Alineación de corte </label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="Cumple" formControlName="op3">
+            <label class="form-check-label" for="inlineRadio1">Cumple</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op3">
+            <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+          </div>
+
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- Hojas cortadas acomodadas del lado correcto </label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="Cumple" formControlName="op4">
+            <label class="form-check-label" for="inlineRadio1">Cumple</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" value="No Cumple" formControlName="op4">
+            <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+          </div>
+
+        <br>
+        <br>
+        <div class="form-group mb-3">
+          <label for="exampleFormControlTextarea1">Observaciones:</label>
+          <textarea class="form-control" rows="3" formControlName="observaciones"></textarea>
+        </div>
+        <div  class="form-row">
+          <div class="text-left col-md-6">
+           <button class="btn btn-primary" type="submit" (click)="Postvigilar2()" [disabled]="!miForm3.valid">Enviar Aspectos</button>
+          </div>
+         </div>
+    </form>
+  </div>

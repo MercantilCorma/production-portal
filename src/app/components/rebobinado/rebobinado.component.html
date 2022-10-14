@@ -1,0 +1,248 @@
+<!-- <p>rebobinado works!</p> -->
+<app-nav></app-nav>
+<br>
+
+<div class="">
+  <h1 style="text-align: center">Bitácora de Operación</h1>
+  <h3 style="text-align: center">Máquina: Corte y Rebobinado</h3>
+<!--   <h4 style="text-align: center;">Orden de Producción: <a style="color: #33C4A8; pointer-events: none;" href="">{{ordenpro}}</a></h4> -->
+</div>
+<hr>
+<div class="col-md-12 mb-3">
+  <form class="needs-validation" [formGroup]="miForm">
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Operación</label>
+        <select class="form-select" formControlName="operacion">
+          <option value="">Operación</option>
+          <option>Arranque</option>
+          <option>Paro de Actividad</option>
+          <option>Cambio de Parámetros</option>
+        </select>
+      </div>
+        <!-- <input type="hidden" [(ngModel)]="ordenpro" class="form-control" formControlName="ordenpro" class="form-control" readonly> -->
+        <input type="hidden" ngModel="{{now|date:'dd-MM-yyyy'}}" class="form-control" formControlName="ordenpro" class="form-control" readonly>
+        <input type="hidden" ngModel="{{now|date:'dd-MM-yyyy'}}" class="form-control" formControlName="fecha" class="form-control" readonly>
+        <input type="hidden" ngModel="{{now|date:'HH:mm:ss'}}" class="form-control" formControlName="hora" readonly>
+        <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="responsable">
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Taper enrollador (%)</label>
+        <input type="text" class="form-control" formControlName="campo1">
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Taper freno (%)</label>
+        <input type="text" class="form-control" formControlName="campo2">
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Ancho del material (cm)</label>
+        <input type="text" class="form-control" formControlName="campo3">
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Sobre velocidad (%)</label>
+        <input type="text" class="form-control" formControlName="campo4">
+      </div>
+
+
+    <!-- <div class="form-row"> -->
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Orden y Limpieza</label>
+        <select class="form-select" formControlName="campo5">
+          <option value="">Orden y Limpieza</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Maquina conectada y encendida</label>
+        <select class="form-select" formControlName="campo6">
+          <option value="">Maquina conectada y encendida</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Botón de paro desactivado</label>
+        <select class="form-select" formControlName="campo7">
+          <option value="">Botón de paro desactivado</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Switch activado</label>
+        <select class="form-select" formControlName="campo8">
+          <option value="">Switch activado</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Maquina calibrada</label>
+        <select class="form-select" formControlName="campo9">
+          <option value="">Maquina calibrada</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Se encuentran afiladas las cuchillas</label>
+        <select class="form-select" formControlName="campo10">
+          <option value="">Se encuentran afiladas las cuchillas </option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Toma de aire abierta</label>
+        <select class="form-select" formControlName="campo11">
+          <option value="">Toma de aire abierta</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Regulador de recargue y presión en "Ceros"</label>
+        <select class="form-select" formControlName="campo12">
+          <option value="">Regulador de recargue y presión en "Ceros"</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Cuchillas colocadas en su posición</label>
+        <select class="form-select" formControlName="campo13">
+          <option value="">Cuchillas colocadas en su posición</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Brazos de soporte activados</label>
+        <select class="form-select" formControlName="campo14">
+          <option value="">Brazos de soporte activados</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Sensores calibrados</label>
+        <select class="form-select" formControlName="campo15">
+          <option value="">Sensores calibrados</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Máquina libre de polvo</label>
+        <select class="form-select" formControlName="campo16">
+          <option value="">Máquina libre de polvo</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="text-success">Ancho de la primera pieza producida al iniciar un arranque.</label>
+        <input type="text" class="form-control" formControlName="campo17">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="text-success">Diametro de la primera pieza producida al iniciar un arranque.</label>
+        <input type="text" class="form-control" formControlName="campo18">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="text-success">La bobina se encuentra dentro de las tolerancias pactadas</label>
+        <input type="text" class="form-control" formControlName="campo19">
+      </div>
+      <div class="col-md-5 mb-3">
+        <label class="text-success">Observaciones</label>
+        <input type="text" class="form-control" formControlName="observaciones">
+      </div>
+
+    <!-- </div> -->
+  </div>
+<button class="btn btn-primary" (click)="Post()" [disabled]="!miForm.valid" >Insertar Datos</button>
+
+<!--     <h3>Respuestas Formulario</h3>
+  <pre>Valid:{{miForm.valid}}</pre>
+  <pre>{{miForm.value | json}}</pre> -->
+  </form>
+</div>
+<div  class="table-responsive">
+  <table  class="table table-hover table-bordered table-responsive" style="font-size: .7em;">
+    <thead class="table-primary">
+      <th>Operación</th>
+      <th>Fecha Registro</th>
+      <th>Hora Registro</th>
+      <th>Taper enrollador (%)</th>
+      <th>Taper freno (%)</th>
+      <th>Ancho del material (cm)</th>
+      <th>Sobre velocidad (%)</th>
+      <th>Orden y limpieza</th>
+      <th>Maquina conectada y encendida</th>
+      <th>Botón de paro desactivado</th>
+      <th>Switch activado</th>
+      <th>Maquina calibrada</th>
+      <th>Se encuentran afiladas las cuchillas</th>
+      <th>Toma de aire abierta</th>
+      <th>Regulador de recargue y presión en "Ceros"</th>
+      <th>Cuchillas colocadas en su posición</th>
+      <th>Brazos de soporte activados</th>
+      <th>Sensores calibrados</th>
+      <th>Máquina libre de polvo</th>
+      <th>Ancho de la primera pieza producida al iniciar un arranque.</th>
+      <th>Diametro de la primera pieza producida al iniciar un arranque.</th>
+      <th>La bobina se encuentra dentro de las tolerancias pactadas</th>
+      <th>Responsable</th>
+      <th>Observaciones</th>
+      <th>Acción</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let information of operations.bitrebobinado" style="font-size: .8em;">
+        <td>{{information.operacion}}</td>
+        <td>{{information.fecha}}</td>
+        <td>{{information.hora}}</td>
+        <td>{{information.campo1}}</td>
+        <td>{{information.campo2}}</td>
+        <td>{{information.campo3}}</td>
+        <td>{{information.campo4}}</td>
+        <td>{{information.campo5}}</td>
+        <td>{{information.campo6}}</td>
+        <td>{{information.campo7}}</td>
+        <td>{{information.campo8}}</td>
+        <td>{{information.campo9}}</td>
+        <td>{{information.campo10}}</td>
+        <td>{{information.campo11}}</td>
+        <td>{{information.campo12}}</td>
+        <td>{{information.campo13}}</td>
+        <td>{{information.campo14}}</td>
+        <td>{{information.campo15}}</td>
+        <td>{{information.campo16}}</td>
+        <td>{{information.campo17}}</td>
+        <td>{{information.campo18}}</td>
+        <td>{{information.campo19}}</td>
+        <td>{{information.responsable}}</td>
+        <td>{{information.observaciones}}</td>
+        <td><button class="btn btn-danger btn-sm" (click)="delateinfo(information.id_bitcorterebobinado)">Eliminar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--   <div *ngIf="num" class="container col-md-12 mb-3">
+    <button class="btn btn-primary" type="submit" (click)="finalizar()">Finalizar</button>
+  </div> -->
+  <div class="form-row  col-md-12 mb-3">
+    <div class="col-md-6 mb-3">
+      <button class="btn btn-primary" type="submit" (click)="finalizar()">Finalizar</button>
+    </div>
+
+<!--     <div class="text-right col-md-6 mb-3">
+      <button class="btn btn-primary" type="submit" (click)="bit2()" target="_blank">Bitacora 2</button>
+    </div> -->
+  </div>

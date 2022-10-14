@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100;200;300;400;500;600;700');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+p{
+  text-align: center;
+}
+.ico{
+  align-items: center;
+  text-align: center;
+}
+.main-head{
+  height: 150px;
+  background: #FFF;
+  align-items: center;
+
+}
+.sidenav {
+  height: 100%;
+  background-color: #000;
+  overflow-x: hidden;
+  padding-top: 0px;
+  background: #c83355;
+  background: linear-gradient(45deg, #000000, #3d3d3d, #000000);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #FFFFFF;
+}
+.main {
+  padding: 0px 10px;
+  align-items: center;
+}
+.login-main-text{
+  margin-top: 10%;
+  padding: 60px;
+  color: #fff;
+  text-align: center;
+}
+.login-main-text h1{
+  font-weight: bold;
+  text-align: center;
+}
+.btn-black{
+  border-radius: 50px;
+  color: #fff;
+  border: 1px solid #000000;
+  background-color: #000000;
+}
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+}
+@media screen and (max-width: 450px) {
+  .login-form{
+      margin-top: 10%;
+  }
+  .register-form{
+      margin-top: 10%;
+  }
+}
+
+@media screen and (min-width: 768px){
+  .main{
+      margin-left: 55%;
+      align-items: center;
+  }
+  .sidenav{
+      width: 45%;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+
+  }
+  .login-form{
+      margin-top: 30%;
+  }
+  .register-form{
+      margin-top: 20%;
+  }
+}
+

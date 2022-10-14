@@ -1,0 +1,53 @@
+
+<!-- <div class="mb-1">
+<form>
+  <fieldset>
+    <div class="form-group">
+      <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
+      <input [(ngModel)]="user.name" name="name"  type="email" class="form-control" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
+      <input [(ngModel)]="user.pass" name="pass" type="password" class="form-control" placeholder="Password">
+    </div><br>
+      <button class="btn btn-primary" (click)="logIn()">Ingresar</button>
+  </fieldset>
+</form>
+</div> -->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<div class="sidenav">
+  <div class="login-main-text">
+    <img class="img-responsive center-block" style="max-height: 240px;" src="../assets/images/logo.png" alt="logo"/>
+     <h1>Hola, Bienvenido!</h1>
+     <p>Ingresa tus datos para poder acceder a nuestro Portal de Producción.</p>
+  </div>
+</div>
+<div class="main">
+  <div class="col-md-8">
+     <div class="login-form">
+        <form (submit)="logIn(name_user)">
+          <div class="ico">
+            <svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: msFilter;"><path d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path></svg>
+          </div>
+
+           <div class="form-group">
+              <label>Nombre de Usuario</label>
+              <input type="mail" [(ngModel)]="user.name" class="form-control" placeholder="Nombre de usuario" [ngModelOptions]="{standalone: true}" #name_user>
+           </div>
+           <div class="form-group">
+              <label>Contraseña</label>
+              <input type="password" [(ngModel)]="user.pass" class="form-control" placeholder="Contraseña" [ngModelOptions]="{standalone: true}">
+           </div>
+           <div class="form-group"  *ngIf="num">
+            <p style="color: brown;">Usuario o Contraseña Incorrectos</p>
+         </div>
+           <button  class="btn btn-black btn-block">Entrar al Portal</button>
+
+        </form>
+          <p>  ¡Damos Solución a tus Ideas! </p>
+     </div>
+  </div>
+</div>

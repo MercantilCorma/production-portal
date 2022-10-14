@@ -1,0 +1,331 @@
+<!-- <p>inspection1 works!</p> -->
+<app-nav></app-nav>
+
+<div class="">
+  <h3 style="text-align: center">Hoja de inspección de Corte</h3>
+  <h4 style="text-align: center;">Orden de Producción: <a style="color: #33C4A8; pointer-events: none;" href="">{{ordendeproduccion}}</a></h4>
+</div>
+<hr>
+
+<div class=" col-md-12">
+  <h6 class="text-info" style="text-align: center;">Materias Primas</h6>
+  <form class="needs-validation" [formGroup]="miForm">
+  <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <input type="hidden" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="ordenpro" />
+        <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elaboro">
+        <label class="text-success">Papel Utilizado</label>
+        <select class="form-select" formControlName="tipo">
+          <option value="">Tipo de Papel</option>
+          <option >Papel Bond</option>
+          <option >Papel Siliconado</option>
+        </select>
+    </div>
+    <div class="col-md-2 mb-1">
+      <label class="text-success">Número de lote</label>
+      <input type="text" class="form-control" placeholder="Lote" formControlName="lote"/>
+    </div>
+    <div class="text-left col-md-1">
+      <label style="color: white;">button</label>
+      <button class="btn btn-primary form-control" type="submit" (click)="Postpapel()" [disabled]="!miForm.valid">Insertar</button>
+     </div>
+     <div class="text-left col-md-2">
+      <label style="color: white;">button</label>
+      <button class="btn btn-primary form-control" type="submit" (click)="verinfo()">Ver Datos</button>
+     </div>
+  </div>
+   </form>
+</div>
+   <div *ngIf="mostrar" class="col-md-4 table-responsive">
+     <table class="table table-hover table-bordered table-responsive-sm" style="font-size: .8em;" id="excel-table">
+      <thead>
+        <tr class="table-primary">
+          <th>Tipo de Papel</th>
+          <th>Num. Lote</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let information of service.papel" style="font-size: .8em;">
+        <td>{{information.tipo}}</td>
+        <td>{{information.lote}}</td>
+        <td><button class="btn btn-danger btn-sm" (click)="delateinfoPapel(information.id_papel)">Eliminar</button></td>
+      </tr>
+     </table>
+   </div>
+   <div class="col-md-12">
+   <form class="needs-validation" [formGroup]="miForm1" >
+       <div class="form-row">
+        <input type="hidden" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="ordenpro" />
+        <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elaboro">
+         <div class="col-md-2 mb-3">
+           <label class="text-success">Folio Utilizado</label>
+           <select class="form-select" formControlName="modelo">
+             <option value="">Tipo de Folio</option>
+             <option >4125C</option>
+             <option >31825C</option>
+             <option >31825B</option>
+             <option >8510W</option>
+             <option >3179B</option>
+           </select>
+         </div>
+         <div class="col-md-2 mb-3">
+           <label class="text-success">Número de lote</label>
+           <input type="text" class="form-control" placeholder="Lote" formControlName="lote"/>
+         </div>
+         <div class="col-md-2 mb-3">
+           <label class="text-success">Cantidad</label>
+           <input type="number" min="0" class="form-control" placeholder="Cantidad" formControlName="cantidad"/>
+         </div>
+
+         <div class="text-left col-md-1">
+           <label style="color: white;">button</label>
+           <button class=" form-control btn btn-primary" type="submit" (click)="Postfolio()" [disabled]="!miForm1.valid">Insertar</button>
+          </div>
+
+          <div class="text-left col-md-2">
+            <label style="color: white;">button</label>
+            <button class="btn btn-primary form-control" type="submit" (click)="verinfo2()">Ver Datos</button>
+           </div>
+
+       </div>
+    </form>
+</div>
+<div *ngIf="mostrar2" class="col-md-4 table-responsive">
+  <table class="table table-hover table-bordered table-responsive-sm" style="font-size: .8em;" id="excel-table">
+   <thead>
+     <tr *ngIf="!false" class="table-primary">
+       <th>Folio Utilizado</th>
+       <th>Num. Lote</th>
+       <th>Cantidad</th>
+       <th>Acción</th>
+     </tr>
+   </thead>
+   <tr *ngFor="let information of service.folio" style="font-size: .8em;">
+    <td>{{information.modelo}}</td>
+    <td>{{information.lote}}</td>
+    <td>{{information.cantidad}}</td>
+    <td><button class="btn btn-danger btn-sm" (click)="delateinfoFolio(information.id_folio)">Eliminar</button></td>
+  </tr>
+  </table>
+</div>
+
+<div class="col-md-12 mb-3">
+  <a href="https://corma.com.mx/subir-imagen/" target=”_blank”  class="text-info" style="font-size: 1.5em;">Subir Fotos</a>
+</div>
+<!-- <div class="col-md-3">
+          <form action="/api/subir" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <input class="form-control" type="file" id="formFile" (change)="fileChange($event)">
+              </div>
+          </form>
+
+  <button class="btn btn-primary" type="submit" (click)="onUpload()"  id="btnUpload">Subir Foto</button>
+</div> -->
+
+<hr>
+
+
+<div class="col-md-12 mb-3">
+  <form class="needs-validation" [formGroup]="miForm2">
+    <input type="hidden" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="ordenpro2" />
+    <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elaboro">
+    <div class="col-md-12 mb-3">
+      <h6 class="text-info" style="text-align: center;">Verificación de Medidas</h6>
+    </div>
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Número de Parte</label>
+        <select class="form-select" formControlName="num_parte">
+          <option value="">Números de Parte</option>
+          <option *ngFor="let prt of ordersselect"
+          [value]="prt.num_parte">{{prt.num_parte}}</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3" *ngFor="let info of inputss">
+        <label class="text-success">Descripción</label>
+        <input type="text" [(ngModel)]="info.descrip" class="form-control" formControlName="descripcion" readonly />
+      </div>
+      <div class="col-md-3 mb-3" *ngFor="let info of inputss">
+        <label class="text-success">Medida de la Hoja</label>
+        <input type="text" [(ngModel)]="info.medida" class="form-control" formControlName="medida" readonly/>
+      </div>
+      <div class="col-md-3 mb-3" *ngFor="let info of inputss">
+        <label class="text-success">Modelo del Folio</label>
+        <input type="text" [(ngModel)]="info.clave" class="form-control" formControlName="modelo" readonly/>
+      </div>
+    </div>
+
+    <div *ngIf="num" class="form-row">
+      <div class="col-md-12 mb-3">
+        <h6 class="text-info" style="text-align: center;">Largo de la hoja (cm)</h6>
+      </div>
+      <div class="col-md-1  mb-3"><input type="number" min="0" class="form-control" placeholder="Dato 1" formControlName="inicial"/>  </div>
+      <div class="col-md-1  mb-3"><input type="number" min="0" class="form-control" placeholder="Dato 2" formControlName="dato1"/></div>
+      <div class="col-md-1  mb-3"><input type="number" min="0" class="form-control" placeholder="Dato 3" formControlName="dato2"/></div>
+      <div class="col-md-1  mb-3"><input type="number" min="0" class="form-control" placeholder="Dato 4" formControlName="dato3"/></div>
+      <div class="col-md-1  mb-3"><input type="number" min="0" class="form-control" placeholder="Dato 5" formControlName="dato4"/></div>
+      <div class="col-md-1  mb-3"><input type="number" min="0" class="form-control" placeholder="Dato 6" formControlName="dato5"/></div>
+      <div class="col-md-1  mb-3"><input type="number" min="0" class="form-control" placeholder="Dato 7" formControlName="dato6"/></div>
+      <div class="col-md-1  mb-3"><input type="number" min="0" class="form-control" placeholder="Dato 8" formControlName="dato7"/></div>
+      <div class="col-md-1  mb-3"><input type="number" min="0" class="form-control" placeholder="Dato 9" formControlName="dato8"/></div>
+      <div class="col-md-1  mb-3"><input type="number" min="0" class="form-control" placeholder="Dato 10" formControlName="dato9"/></div>
+      <div class="col-md-1  mb-3"><input type="number" min="0" class="form-control" placeholder="Final" formControlName="dato10"/>  </div>
+      <div class="col-md-1 mb-3"><input type="text"    class="form-control" placeholder="Observaciones" formControlName="observaciones"/>  </div>
+    </div>
+    <div *ngIf="num" class="form-row">
+     <div class="text-left col-md-6">
+      <button class="btn btn-primary" type="submit" (click)="Posinspeccion()" [disabled]="!miForm2.valid">Insertar Información</button>
+     </div>
+    </div>
+  </form>
+</div>
+
+<div class="table-responsive">
+<table class="table table-hover table-bordered table-responsive-sm" style="font-size: .7em;" id="excel-table">
+  <thead>
+  <tr class="table-primary">
+    <th>Número de Parte</th>
+    <th>Descripción</th>
+    <th>Medida de la hoja (cm)</th>
+    <th>Modelo del folio</th>
+    <th>Dato 1</th>
+    <th>Dato 2</th>
+    <th>Dato 3</th>
+    <th>Dato 4</th>
+    <th>Dato 5</th>
+    <th>Dato 6</th>
+    <th>Dato 7</th>
+    <th>Dato 8</th>
+    <th>Dato 9</th>
+    <th>Dato 10</th>
+    <th>Final</th>
+    <th>Observaciones</th>
+    <th>Fecha de Captura</th>
+    <th>Acción</th>
+  </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let information of service.info"   style="font-size: .9em;">
+      <td>{{information.num_parte}}</td>
+      <td>{{information.descripcion}}</td>
+      <td>{{information.medida}}</td>
+      <td>{{information.modelo}}</td>
+      <td>{{information.inicial}}</td>
+      <td>{{information.dato1}}</td>
+      <td>{{information.dato2}}</td>
+      <td>{{information.dato3}}</td>
+      <td>{{information.dato4}}</td>
+      <td>{{information.dato5}}</td>
+      <td>{{information.dato6}}</td>
+      <td>{{information.dato7}}</td>
+      <td>{{information.dato8}}</td>
+      <td>{{information.dato9}}</td>
+      <td>{{information.dato10}}</td>
+      <td>{{information.observaciones}}</td>
+      <td>{{information.fecha_creacion|date:'medium':'UTC'}}</td>
+      <td><button class="btn btn-danger btn-sm" (click)="delateinfo(information.id)">Eliminar</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<!--     <h3>Respuestas Formulario</h3>
+  <pre>Valid:{{miForm.valid}}</pre>
+  <pre>{{miForm.value | json}}</pre> -->
+<hr>
+  <div class="col-md-12 mb-3">
+    <form [formGroup]="miForm3">
+      <p class="text-danger">Nota: Llenar este apartado hasta haber terminado de llenar todos los números de Parte.</p>
+    <h6 class="text-info" style="text-align: center;">Aspectos a Vigilar</h6>
+    <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elaboro">
+    <input type="hidden" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="ordenpro" />
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- Dimensiones de las hojas se encuentran dentrode los parámetros </label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="Cumple" formControlName="op1">
+            <label class="form-check-label" for="inlineRadio1">Cumple</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op1">
+            <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+          </div>
+
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- El folio sin arrugas o dobleces </label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="Cumple" formControlName="op2">
+            <label class="form-check-label" for="inlineRadio1">Cumple</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op2">
+            <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+          </div>
+
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- Folio limpio (sin manchas o contaminación) </label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="Cumple" formControlName="op3">
+            <label class="form-check-label" for="inlineRadio1">Cumple</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op3">
+            <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+          </div>
+
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- Folio colocado del lado correcto (parte de folio hacia arriba) </label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="Cumple" formControlName="op4">
+            <label class="form-check-label" for="inlineRadio1">Cumple</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" value="No Cumple" formControlName="op4">
+            <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+          </div>
+
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- Folio no se encuentra expuesto (sin papel) </label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="Cumple" formControlName="op5">
+            <label class="form-check-label" for="inlineRadio1">Cumple</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op5">
+            <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+          </div>
+
+        <br>
+        <br>
+        <div class="form-group mb-3">
+          <label for="exampleFormControlTextarea1">Observaciones:</label>
+          <textarea class="form-control" rows="3" formControlName="observaciones"></textarea>
+        </div>
+        <div  class="form-row">
+          <div class="text-left col-md-6">
+           <button class="btn btn-primary" type="submit" (click)="Postvigilar()" [disabled]="!miForm3.valid">Enviar Aspectos</button>
+          </div>
+         </div>
+    </form>
+    <form [formGroup]="miForm4">
+      <!-- <h6 class="text-info" style="text-align: center;">Aspectos a Vigilar</h6> -->
+      <input type="hidden" [(ngModel)]="avancefinal" readonly class="form-control-plaintext" formControlName="avance">
+
+    </form>
+  </div>
+<!--     <h3>Respuestas Formulario</h3>
+  <pre>Valid:{{miForm4.valid}}</pre>
+  <pre>{{miForm4.value | json}}</pre> -->

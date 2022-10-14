@@ -1,0 +1,112 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Mercantil Corma</a>
+    <!--     <img class="img-responsive center-block" style="max-height: 70px; margin-top: 0%;top: 0%;" src="../assets/images/logo.png" alt="logo"/>-->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" routerLink="/orders"   routerLinkActive="active"> Crear Orden de Producción</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ver Información</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" (click)="formatos(variables)">Bitacoras de Operación</a>
+            <a class="dropdown-item" (click)="formatos2(variables2)">Formatos de Operación</a>
+            <a class="dropdown-item" routerLink="/stock"       >Administrar Stock</a>
+          </div>
+        </li>
+        <!-- <li class="nav-item"><a class="nav-link" routerLink="/stock"    routerLinkActive="active">Stock</a></li> -->
+        <!-- <li class="nav-item"><a class="nav-link" routerLink="/lami"    routerLinkActive="active">Laminado</a></li> -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Bitacoras de Operación</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" routerLink="/lami"         target="_blank" >Laminadora</a>
+            <a class="dropdown-item" routerLink="/cortedisco"   target="_blank" >Corte con Disco</a>
+            <a class="dropdown-item" routerLink="/rebobinado"   target="_blank" >Corte y Rebobinado</a>
+            <a class="dropdown-item" routerLink="/troquelado"   target="_blank" >Troqueladora</a>
+            <a class="dropdown-item" routerLink="/corte-bit2"   target="_blank" >Corte (OS)</a>
+            <a class="dropdown-item" routerLink="/suaje-bit2"   target="_blank" >Suaje (OS)</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item"><a class=" link" href="#">Usuario: {{user}} &nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+        <li class="nav-item"><a class=" link" href="#">Fecha: {{now|date:'dd-MM-yyyy / HH:mm:ss'}}&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+        <!-- a class="nav-link" click()="AuthService.logout()">Cerrar sesión</a> -->
+        <!-- <button (click)="logout()" class="btn btn-link">Cerrar Sesión</button> -->
+        <li class="nav-item"><a (click)="logout()" class="btn-link">Cerrar Sesión</a></li>
+
+    </ul>
+
+   </div>
+  </nav>
+  &nbsp;
+  <div class="col-md-12 mb-3">
+
+          <form class="needs-validation">
+            <div class="form-row">
+              <div class="col-md-3 mb-3">
+                <label class="text-success">Buscar por Planta/Sucursal</label>
+                  <input type="text" class="form-control" placeholder="Buscar..."#search (keyup)="searchfun(search.value)"/>
+              </div>
+              <div class="col-md-2 mb-3">
+                <label class="text-success">Fecha Inicial</label>
+                  <input type="date" class="form-control" #fecha1 />
+              </div>
+              <div class="col-md-2 mb-3">
+                <label class="text-success">Fecha Final</label>
+                  <input type="date" class="form-control" #fecha2 />
+              </div>
+              <div class="col-md-1 mb-3">
+                <label style="color: white;">boton</label>
+                <button class="btn btn-primary form-control" (click)="filter2(fecha1,fecha2)">Filtrar</button>
+              </div>
+              <div class="col-md-1 mb-3">
+                <label style="color: white;">boton2</label>
+                <button class="btn btn-primary form-control" (click)="getOrders()">Ver Todo</button>
+              </div>
+            </div>
+         </form>
+   </div>
+<table class="table table-hover table-responsive-sm table-bordered">
+  <thead class="table-primary">
+    <th scope="col">Nombre del Cliente</th>
+    <th scope="col">Planta/Sucursal</th>
+    <th scope="col">Semana de Producción</th>
+    <th scope="col">Fecha de Entrega</th>
+    <th scope="col">Avance</th>
+    <th scope="col">Orden de Producción</th>
+    <th scope="col">Proceso a Realizar</th>
+  </thead>
+  <tbody>
+    <tr  *ngFor="let information of users.Orders_pro | filtro:buscar">
+      <td>{{information.nombre_cliente}}</td>
+      <td>{{information.sucursal}}</td>
+      <td>{{information.sem_entrega}}</td>
+      <td>{{information.fecha_entrega|date:'dd-MM-yyyy'}}</td>
+      <td class="text-success">{{information.avance}}%</td>
+      <td>{{information.ordenpro}}</td>
+      <td>
+        <ul class="nav nav-pills">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Selecciona</a>
+            <div class="dropdown-menu">
+              <!-- <button class="btn btn-primary" (click)="prueba()">Corte</button> -->
+              <a class="dropdown-item" (click)="corte(information.ordenpro)"      target="_blank" >Corte</a>
+              <a class="dropdown-item" (click)="suaje(information.ordenpro)"      target="_blank" >Suaje</a>
+              <!-- <a class="dropdown-item" (click)="lami(information.ordenpro)"       target="_blank" >Laminado</a> -->
+              <a class="dropdown-item" (click)="empaque(information.ordenpro)"    target="_blank" >Empaquetado</a>
+              <a class="dropdown-item" (click)="liberacion(information.ordenpro)" target="_blank" >Liberación de Producto</a>
+              <a class="dropdown-item" (click)="inspection(information.ordenpro,information.nombre_cliente)" target="_blank" >Lista de Inspección</a>
+              <a class="dropdown-item" (click)="calidad(information.ordenpro)"    target="_blank" >Formato de control de Calidad</a>
+              <a class="dropdown-item" (click)="OrdenPro(information.ordenpro)"   target="_blank" >Ver Orden de Producción</a>
+            </div>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

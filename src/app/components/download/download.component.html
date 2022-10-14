@@ -1,0 +1,1256 @@
+<!-- <p>download works!</p> -->
+<app-nav></app-nav>
+<div *ngIf="exito2">
+<div class="" style="background-color: #2C3F50;">
+  <h4 style="text-align: center; color: white;">Orden de Producción</h4>
+</div>
+<div class="col-md-12 mb-3">
+  <form class="needs-validation">
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Orden de Producción</label>
+        <select class="form-select" #ordenpro>
+          <option value="">Selecciona la Orden</option>
+          <option *ngFor="let info of ordersselect"
+                  [value]="info.ordenpro">{{info.ordenpro}}</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="checkData(ordenpro)">Verificar Datos</button>
+  </form>
+</div>
+
+  <div *ngIf="num">
+    <div class="table-responsive">
+  <table class="table table-hover table-bordered table-responsive" style="font-size: .7em;" id="excel-table">
+    <!-- <tr><p class="text-success">Orden de Producción </p></tr> -->
+    <tr class="table-primary">
+      <th>OP</th>
+      <th>Cliente</th>
+      <th>Ciudad</th>
+      <th>sucursal</th>
+      <th>Fecha Entrega</th>
+      <th>Semana Entrega</th>
+      <th>Fecha Creación</th>
+      <th>No. de Articulo</th>
+      <th>No. de Parte</th>
+      <th>Descripción</th>
+      <th>No. de Orden de Compra</th>
+      <th>Clave</th>
+      <th>Medida (cm)</th>
+      <th>Piezas X Medida</th>
+      <th>Hojas a Cortar</th>
+      <th>No. de Paquetes</th>
+      <th>Cantidad</th>
+      <th>Piezas X Caja</th>
+      <th>cajas a Utilizar</th>
+      <th *ngIf="exito">Acciones</th>
+    </tr>
+      <tr *ngFor="let information of service.ordendepro" style="font-size: .8em;">
+        <td>{{information.ordenpro}}</td>
+        <td>{{information.nombre_cliente}}</td>
+        <td>{{information.ciudad}}</td>
+        <td>{{information.sucursal}}</td>
+        <td>{{information.fecha_entrega}}</td>
+        <td>{{information.sem_entrega}}</td>
+        <td>{{information.fecha_creacion | date:'medium':'UTC'}}</td>
+        <td>{{information.num_articulo}}</td>
+        <td>{{information.num_parte}}</td>
+        <td>{{information.descripcion}}</td>
+        <td>{{information.num_orden_com}}</td>
+        <td>{{information.clave}}</td>
+        <td>{{information.medida}}</td>
+        <td>{{information.pieza_medida}}</td>
+        <td>{{information.hojas_cortar}}</td>
+        <td>{{information.num_paquetes}}</td>
+        <td>{{information.cantidad}}</td>
+        <td>{{information.piezas_caja}}</td>
+        <td>{{information.cajas_utilizar}}</td>
+        <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateorden(information.id_order,ordenpro)">Eliminar</button></td>
+      </tr>
+      <tr></tr>
+      <br>
+        <tr class="table-primary">
+        <th>Total</th>
+        <th>Peso Bruto</th>
+        <th>Peso Neto</th>
+        <th>Total de Cajas</th>
+        <th *ngIf="exito">Acciones</th>
+      </tr>
+      <tr *ngFor="let information of service.ordendeproCal" style="font-size: .8em;">
+        <td>{{information.total}}</td>
+        <td>{{information.peso_bruto}}</td>
+        <td>{{information.peso_neto}}</td>
+        <td>{{information.total_cajas}}</td>
+        <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateordencalculations(information.id,ordenpro)">Eliminar</button></td>
+      </tr>
+      <tr></tr>
+      <tr><p class="text-success">FO-PRO-01 R4 </p></tr>
+  </table>
+  </div>
+
+  <div class=" col-md-12 mb-3">
+    <button class="btn btn-success" (click)="exportexcel()">Descarga el Excel <i class="far fa-file-excel"></i></button>
+  </div>
+</div>
+<hr>
+</div>
+<!-- ////////////////////////////////////////////////////////// -->
+<div *ngIf="exito3">
+<div class="alert alert-dismissible alert-primary" style="background-color: #2C3F50;">
+  <h4 style="text-align: center; color: white;">Bitácora Corte</h4>
+</div>
+<div class=" col-md-12 mb-3">
+  <form class="needs-validation">
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Orden de Producción</label>
+        <select class="form-select" #ordenpro2>
+          <option value="">Selecciona la Orden</option>
+          <option *ngFor="let info of ordersselect"
+                  [value]="info.ordenpro">{{info.ordenpro}}</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="getBitCorte(ordenpro2)">Verificar Datos</button>
+  </form>
+</div>
+
+  <div *ngIf="num2">
+    <div class="table-responsive">
+  <table class="table table-hover table-bordered table-responsive" style="font-size: .7em;" id="excel-table2">
+    <!-- <tr><h6 class="text-success">Bitácora Corte</h6></tr> -->
+    <tr class="table-primary">
+      <th>OP</th>
+      <th>Operación</th>
+      <th>Fecha de Captura</th>
+      <th>Hora</th>
+      <th>Número de Articulo</th>
+      <th>Velocidad de Hojeo</th>
+      <th>Orden y Limpieza</th>
+      <th>Máquina Conectada / Encendida</th>
+      <th>Botón de paro desactivado</th>
+      <th>Posición correcta de rollos</th>
+      <th>Correcta alineación de rollos</th>
+      <th>Contador de Hojas en 0</th>
+      <th>Máquina libre de polvo</th>
+      <th>Navaja Lubricada</th>
+      <th>Toma de aire cerrada</th>
+      <th>Medida 1</th>
+      <th>Medida 2</th>
+      <th>Medida 3</th>
+      <th>Medida 4</th>
+      <th>Medida 5</th>
+      <th>Las medidas se encuentran dentro de las tolerancias</th>
+      <th>Responsable</th>
+      <th>Observaciones</th>
+      <th *ngIf="exito">Acciones</th>
+    </tr>
+      <tr *ngFor="let information of service.bitcorte" style="font-size: .8em;">
+        <td>{{information.ordenpro}}</td>
+        <td>{{information.operacion}}</td>
+        <td>{{information.fecha}}</td>
+        <td>{{information.hora}}</td>
+        <td>{{information.articulo}}</td>
+        <td>{{information.velocidad}}</td>
+        <td>{{information.campo1}}</td>
+        <td>{{information.campo2}}</td>
+        <td>{{information.campo3}}</td>
+        <td>{{information.campo4}}</td>
+        <td>{{information.campo5}}</td>
+        <td>{{information.campo6}}</td>
+        <td>{{information.campo7}}</td>
+        <td>{{information.campo8}}</td>
+        <td>{{information.campo9}}</td>
+        <td>{{ information.campo10 }}</td>
+        <td>{{ information.campo11 }}</td>
+        <td>{{ information.campo12 }}</td>
+        <td>{{ information.campo13 }}</td>
+        <td>{{ information.campo14 }}</td>
+        <td>{{ information.campo15 }}</td>
+        <td>{{information.responsable}}</td>
+        <td>{{information.observacion}}</td>
+        <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfocorte(information.id_corte,ordenpro2)">Eliminar</button></td>
+      </tr>
+      <tr><p class="text-success">FO-PRO-21 R1 </p></tr>
+  </table>
+  </div>
+  <div class=" col-md-12 mb-3">
+    <button class="btn btn-success" (click)="exportexcelBitCorte()">Descargaa el Excel <i class="far fa-file-excel"></i></button>
+  </div>
+</div>
+<hr>
+</div>
+<!-- ////////////////////////////////////////////////////////// -->
+
+
+<div *ngIf="exito3">
+  <div class="alert alert-dismissible alert-primary" style="background-color: #2C3F50;">
+    <h4 style="text-align: center; color: white;">Bitácora Corte (OS)</h4>
+  </div>
+  <div class=" col-md-12 mb-3">
+    <form class="needs-validation">
+      <div class="form-row">
+        <div class="col-md-2 mb-3">
+          <label class="text-success">Orden de Producción</label>
+          <select class="form-select" #ordenpro20>
+            <option value="">Selecciona la Orden</option>
+            <option *ngFor="let info of ordersselectcortetwo"
+                    [value]="info.ordenpro">{{info.ordenpro}}</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="getinfocortetwo(ordenpro20)">Verificar Datos</button>
+    </form>
+  </div>
+
+    <div *ngIf="num20">
+      <div class="table-responsive">
+    <table class="table table-hover table-bordered table-responsive" style="font-size: .7em;" id="excel-table20">
+      <!-- <tr><h6 class="text-success">Bitácora Corte</h6></tr> -->
+      <tr class="table-primary">
+        <th>OP</th>
+        <th>Operación</th>
+        <th>Fecha de Captura</th>
+        <th>Hora</th>
+        <th>Número de Articulo</th>
+        <th>Velocidad de Hojeo</th>
+        <th>Orden y Limpieza</th>
+        <th>Máquina Conectada / Encendida</th>
+        <th>Botón de paro desactivado</th>
+        <th>Posición correcta de rollos</th>
+        <th>Correcta alineación de rollos</th>
+        <th>Contador de Hojas en 0</th>
+        <th>Máquina libre de polvo</th>
+        <th>Navaja Lubricada</th>
+        <th>Toma de aire cerrada</th>
+        <th>Medida 1</th>
+        <th>Medida 2</th>
+        <th>Medida 3</th>
+        <th>Medida 4</th>
+        <th>Medida 5</th>
+        <th>Las medidas se encuentran dentro de las tolerancias</th>
+        <th>Responsable</th>
+        <th>Observaciones</th>
+        <th *ngIf="exito">Acciones</th>
+      </tr>
+        <tr *ngFor="let information of service.infocorte" style="font-size: .8em;">
+          <td>{{information.ordenpro}}</td>
+          <td>{{information.operacion}}</td>
+          <td>{{information.fecha}}</td>
+          <td>{{information.hora}}</td>
+          <td>{{information.articulo}}</td>
+          <td>{{information.velocidad}}</td>
+          <td>{{information.campo1}}</td>
+          <td>{{information.campo2}}</td>
+          <td>{{information.campo3}}</td>
+          <td>{{information.campo4}}</td>
+          <td>{{information.campo5}}</td>
+          <td>{{information.campo6}}</td>
+          <td>{{information.campo7}}</td>
+          <td>{{information.campo8}}</td>
+          <td>{{information.campo9}}</td>
+          <td>{{ information.campo10 }}</td>
+          <td>{{ information.campo11 }}</td>
+          <td>{{ information.campo12 }}</td>
+          <td>{{ information.campo13 }}</td>
+          <td>{{ information.campo14 }}</td>
+          <td>{{ information.campo15 }}</td>
+          <td>{{information.responsable}}</td>
+          <td>{{information.observacion}}</td>
+          <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfocortetwo(information.id_corte,ordenpro20)">Eliminar</button></td>
+        </tr>
+        <tr><p class="text-success">FO-PRO-21 R1 </p></tr>
+    </table>
+    </div>
+    <div class=" col-md-12 mb-3">
+      <button class="btn btn-success" (click)="exportexcelCortetwo()">Descargaa el Excel <i class="far fa-file-excel"></i></button>
+    </div>
+  </div>
+  <hr>
+  </div>
+  <!-- ////////////////////////////////////////////////////////// -->
+
+<div *ngIf="exito3">
+<div class="alert alert-dismissible alert-primary">
+  <h4 style="text-align: center; color: white;">Bitácora Suaje</h4>
+</div>
+<div class=" col-md-12 mb-3">
+  <form class="needs-validation">
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Orden de Producción</label>
+        <select class="form-select" #ordenpro3>
+          <option value="">Selecciona la Orden</option>
+          <option *ngFor="let info of ordersselect"
+                  [value]="info.ordenpro">{{info.ordenpro}}</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="getBitSuaje(ordenpro3)">Verificar Datos</button>
+  </form>
+</div>
+  <div *ngIf="num3">
+    <div class="table-responsive">
+  <table class="table table-hover table-bordered table-responsive" style="font-size: .7em;" id="excel-table3">
+    <!-- <tr><h6 class="text-success">Bitácora Suaje</h6></tr> -->
+    <tr class="table-primary">
+      <th>OP</th>
+      <th>Operación</th>
+      <th>Fecha de Captura</th>
+      <th>Hora de Captura</th>
+      <th>Posición del Potenciómetro</th>
+      <th>Orden y Limpieza</th>
+      <th>Máquina Conectada / Encendida</th>
+      <th>Máquina en modo especial</th>
+      <th>Altura de Brazo a 15cm Max</th>
+      <th>Suajes en buenas condiciones</th>
+      <th>Nylamid sin surcos</th>
+      <th>Auditivamente se detecta ruido</th>
+      <th>Al iniciar un arranque cumple con la forma y dimensiones</th>
+      <th>Responsable</th>
+      <th>Observaciones</th>
+      <th *ngIf="exito">Acciones</th>
+    </tr>
+      <tr *ngFor="let information of service.bitsuaje" style="font-size: .8em;">
+        <td>{{information.ordenpro}}</td>
+        <td>{{information.operacion}}</td>
+        <td>{{information.fecha}}</td>
+        <td>{{information.hora}}</td>
+        <td>{{information.posicion}}</td>
+        <td>{{information.campo1}}</td>
+        <td>{{information.campo2}}</td>
+        <td>{{information.campo3}}</td>
+        <td>{{information.campo4}}</td>
+        <td>{{information.campo5}}</td>
+        <td>{{information.campo6}}</td>
+        <td>{{information.campo7}}</td>
+        <td>{{information.campo8}}</td>
+        <td>{{information.responsable}}</td>
+        <td>{{information.observacion}}</td>
+        <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfosuaje(information.id_suaje,ordenpro3)">Eliminar</button></td>
+      </tr>
+      <tr><p class="text-success">FO-Pro-21 R1 </p></tr>
+  </table>
+    </div>
+  <div class=" col-md-12 mb-3">
+    <button class="btn btn-success" (click)="exportexcelBitSuaje()">Descargaa el Excel <i class="far fa-file-excel"></i></button>
+  </div>
+</div>
+<hr>
+</div>
+<!-- ////////////////////////////////////////////////////////// -->
+
+
+<div *ngIf="exito3">
+  <div class="alert alert-dismissible alert-primary">
+    <h4 style="text-align: center; color: white;">Bitácora Suaje (OS)</h4>
+  </div>
+  <div class=" col-md-12 mb-3">
+    <form class="needs-validation">
+      <div class="form-row">
+        <div class="col-md-2 mb-3">
+          <label class="text-success">Orden de Producción</label>
+          <select class="form-select" #ordenpro21>
+            <option value="">Selecciona la Orden</option>
+            <option *ngFor="let info of ordersselectsuajetwo"
+                    [value]="info.ordenpro">{{info.ordenpro}}</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="getinfosuajetwo(ordenpro21)">Verificar Datos</button>
+    </form>
+  </div>
+    <div *ngIf="num21">
+      <div class="table-responsive">
+    <table class="table table-hover table-bordered table-responsive" style="font-size: .7em;" id="excel-table21">
+      <!-- <tr><h6 class="text-success">Bitácora Suaje</h6></tr> -->
+      <tr class="table-primary">
+        <th>OP</th>
+        <th>Operación</th>
+        <th>Fecha de Captura</th>
+        <th>Hora de Captura</th>
+        <th>Posición del Potenciómetro</th>
+        <th>Orden y Limpieza</th>
+        <th>Máquina Conectada / Encendida</th>
+        <th>Máquina en modo especial</th>
+        <th>Altura de Brazo a 15cm Max</th>
+        <th>Suajes en buenas condiciones</th>
+        <th>Nylamid sin surcos</th>
+        <th>Auditivamente se detecta ruido</th>
+        <th>Al iniciar un arranque cumple con la forma y dimensiones</th>
+        <th>Responsable</th>
+        <th>Observaciones</th>
+        <th *ngIf="exito">Acciones</th>
+      </tr>
+        <tr *ngFor="let information of service.infosuaje" style="font-size: .8em;">
+          <td>{{information.ordenpro}}</td>
+          <td>{{information.operacion}}</td>
+          <td>{{information.fecha}}</td>
+          <td>{{information.hora}}</td>
+          <td>{{information.posicion}}</td>
+          <td>{{information.campo1}}</td>
+          <td>{{information.campo2}}</td>
+          <td>{{information.campo3}}</td>
+          <td>{{information.campo4}}</td>
+          <td>{{information.campo5}}</td>
+          <td>{{information.campo6}}</td>
+          <td>{{information.campo7}}</td>
+          <td>{{information.campo8}}</td>
+          <td>{{information.responsable}}</td>
+          <td>{{information.observacion}}</td>
+          <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfosuajetwo(information.id_suaje,ordenpro21)">Eliminar</button></td>
+        </tr>
+        <tr><p class="text-success">FO-Pro-21 R1 </p></tr>
+    </table>
+      </div>
+    <div class=" col-md-12 mb-3">
+      <button class="btn btn-success" (click)="exportexcelSuajetwo()">Descargaa el Excel <i class="far fa-file-excel"></i></button>
+    </div>
+  </div>
+  <hr>
+  </div>
+  <!-- ////////////////////////////////////////////////////////// -->
+
+
+
+<div *ngIf="exito3">
+<div class="alert alert-dismissible alert-primary">
+  <h4 style="text-align: center; color: white;">Bitácora Laminado</h4>
+</div>
+<div class=" col-md-12 mb-3">
+  <form class="needs-validation">
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Orden de Producción</label>
+        <select class="form-select" #ordenpro4>
+          <option value="">Selecciona la Orden</option>
+          <option *ngFor="let info of ordersselectlami"
+                  [value]="info.ordenpro">{{info.ordenpro}}</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="getBitLami(ordenpro4)">Verificar Datos</button>
+  </form>
+</div>
+  <div *ngIf="num4">
+    <div class="table-responsive">
+  <table class="table table-hover table-bordered table-responsive" style="font-size: .7em;" id="excel-table4">
+    <!-- <tr><h6 class="text-success">Bitácora Laminado</h6></tr> -->
+    <tr class="table-primary">
+      <!-- <th>OP</th> -->
+      <th>Fecha de Captura </th>
+      <th>Operación</th>
+      <th>Hora de Captura</th>
+      <th>Velocidad Inicial</th>
+      <th>Velocidad Final</th>
+      <th>Orden y Limpieza</th>
+      <th>Máquina Conectada y Encendida</th>
+      <th>Potenciómetro en 0</th>
+      <th>Potenciómetro en luz verde</th>
+      <th>Cadenas en buen estado</th>
+      <th>Opresores en buenas Condiciones</th>
+      <th>Separación del folio protector con respecto al papel</th>
+      <th>La medida se encuentra dentro de las tolerancias</th>
+      <th>Responsable</th>
+      <th>Observaciones</th>
+      <th *ngIf="exito">Acciones</th>
+    </tr>
+      <tr *ngFor="let information of service.bitlami" style="font-size: .8em;">
+        <!-- <td>{{information.ordenpro}}</td> -->
+        <td>{{information.fecha}}</td>
+        <td>{{information.operacion}}</td>
+        <td>{{information.hora}}</td>
+        <td>{{information.velocidadON}}</td>
+        <td>{{information.velocidadON}}</td>
+        <td>{{information.campo1}}</td>
+        <td>{{information.campo2}}</td>
+        <td>{{information.campo3}}</td>
+        <td>{{information.campo4}}</td>
+        <td>{{information.campo5}}</td>
+        <td>{{information.campo6}}</td>
+        <td>{{information.campo7}}</td>
+        <td>{{information.campo8}}</td>
+        <td>{{information.responsable}}</td>
+        <td>{{information.observaciones}}</td>
+        <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfolami(information.id_lami,ordenpro4)">Eliminar</button></td>
+      </tr>
+      <tr><p class="text-success">FO-PRO-21 R1 </p></tr>
+  </table>
+    </div>
+  <div class="col-md-12 mb-3">
+    <button class="btn btn-success" (click)="exportexcelBitlami()">Descargaa el Excel <i class="far fa-file-excel"></i></button>
+  </div>
+</div>
+<hr>
+</div>
+
+
+
+<div *ngIf="exito3">
+  <div class="alert alert-dismissible alert-primary">
+    <h4 style="text-align: center; color: white;">Bitácora Corte con Disco</h4>
+  </div>
+  <div class=" col-md-12 mb-3">
+    <form class="needs-validation">
+      <div class="form-row">
+        <div class="col-md-2 mb-3">
+          <label class="text-success">Orden de Producción</label>
+          <select class="form-select" #ordenpro9>
+            <option value="">Selecciona la Orden</option>
+            <option *ngFor="let info of ordersselectcortedisco"
+                    [value]="info.ordenpro">{{info.ordenpro}}</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="getcortedisco(ordenpro9)">Verificar Datos</button>
+    </form>
+  </div>
+    <div *ngIf="num9">
+      <div class="table-responsive">
+        <table  class="table table-hover table-bordered table-responsive" style="font-size: .7em;" id="excel-table9">
+          <tr class="table-primary">
+            <th>Operación</th>
+            <th>Fecha Registro</th>
+            <th>Hora Registro</th>
+            <th>Distancia de la pared (cm)</th>
+            <th>Orden y Limpieza</th>
+            <th>Máquina con el switch desactivado</th>
+            <th>Selección de disco correcto para el corte</th>
+            <th>Cuchilla a utilizar en buenas condiciones</th>
+            <th>Disco a utilizar ajustado con la contratuerca</th>
+            <th>Cuchilla lubricada (al usar navaja)</th>
+            <th>Guarda de seguridad colocada (al usar disco cierra)</th>
+            <th>Ancho resultante de la primer bobina cortada </th>
+            <th>La bobina se encuentra dentro de las tolerancias</th>
+            <th>Responsable</th>
+            <th>Observaciones</th>
+            <th *ngIf="exito">Acciones</th>
+          </tr>
+          <tbody>
+            <tr *ngFor="let information of operations.bitcortedisco" style="font-size: .8em;">
+              <td>{{information.operacion}}</td>
+              <td>{{information.fecha}}</td>
+              <td>{{information.hora}}</td>
+              <td>{{information.distancia}}</td>
+              <td>{{information.campo1}}</td>
+              <td>{{information.campo2}}</td>
+              <td>{{information.campo3}}</td>
+              <td>{{information.campo4}}</td>
+              <td>{{information.campo5}}</td>
+              <td>{{information.campo6}}</td>
+              <td>{{information.campo7}}</td>
+              <td>{{information.campo8}}</td>
+              <td>{{information.campo9}}</td>
+              <td>{{information.responsable}}</td>
+              <td>{{information.observaciones}}</td>
+              <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfocortedisco(information.id_bitcortedisco,ordenpro9)">Eliminar</button></td>
+            </tr>
+          </tbody>
+          <tr><p class="text-success">FO-PRO-21 R1 </p></tr>
+        </table>
+      </div>
+    <div class="col-md-12 mb-3">
+      <button class="btn btn-success" (click)="exportexcelCorteDisco()">Descargaa el Excel <i class="far fa-file-excel"></i></button>
+    </div>
+  </div>
+  <hr>
+  </div>
+
+
+  <div *ngIf="exito3">
+    <div class="alert alert-dismissible alert-primary">
+      <h4 style="text-align: center; color: white;">Bitácora Corte y Rebobinado</h4>
+    </div>
+    <div class=" col-md-12 mb-3">
+      <form class="needs-validation">
+        <div class="form-row">
+          <div class="col-md-2 mb-3">
+            <label class="text-success">Orden de Producción</label>
+            <select class="form-select" #ordenpro10>
+              <option value="">Selecciona la Orden</option>
+              <option *ngFor="let info of ordersselectcorterebobinado"
+                      [value]="info.ordenpro">{{info.ordenpro}}</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="getrebobinado(ordenpro10)">Verificar Datos</button>
+      </form>
+    </div>
+      <div *ngIf="num10">
+        <div class="table-responsive">
+          <table  class="table table-hover table-bordered table-responsive" style="font-size: .7em;" id="excel-table10">
+            <tr class="table-primary">
+              <th>Operación</th>
+              <th>Fecha Registro</th>
+              <th>Hora Registro</th>
+              <th>Taper enrollador (%)</th>
+              <th>Taper freno (%)</th>
+              <th>Ancho del material (cm)</th>
+              <th>Sobre velocidad (%)</th>
+              <th>Orden y limpieza</th>
+              <th>Maquina conectada y encendida</th>
+              <th>Botón de paro desactivado</th>
+              <th>Switch activado</th>
+              <th>Maquina calibrada</th>
+              <th>Se encuentran afiladas las cuchillas</th>
+              <th>Toma de aire abierta</th>
+              <th>Regulador de recargue y presión en "Ceros"</th>
+              <th>Cuchillas colocadas en su posición</th>
+              <th>Brazos de soporte activados</th>
+              <th>Sensores calibrados</th>
+              <th>Máquina libre de polvo</th>
+              <th>Ancho de la primera pieza producida al iniciar un arranque.</th>
+              <th>Diametro de la primera pieza producida al iniciar un arranque.</th>
+              <th>La bobina se encuentra dentro de las tolerancias pactadas</th>
+              <th>Responsable</th>
+              <th>Observaciones</th>
+              <th *ngIf="exito">Acciones</th>
+            </tr>
+            <tbody>
+              <tr *ngFor="let information of operations.bitrebobinado" style="font-size: .8em;">
+                <td>{{information.operacion}}</td>
+                <td>{{information.fecha}}</td>
+                <td>{{information.hora}}</td>
+                <td>{{information.campo1}}</td>
+                <td>{{information.campo2}}</td>
+                <td>{{information.campo3}}</td>
+                <td>{{information.campo4}}</td>
+                <td>{{information.campo5}}</td>
+                <td>{{information.campo6}}</td>
+                <td>{{information.campo7}}</td>
+                <td>{{information.campo8}}</td>
+                <td>{{information.campo9}}</td>
+                <td>{{information.campo10}}</td>
+                <td>{{information.campo11}}</td>
+                <td>{{information.campo12}}</td>
+                <td>{{information.campo13}}</td>
+                <td>{{information.campo14}}</td>
+                <td>{{information.campo15}}</td>
+                <td>{{information.campo16}}</td>
+                <td>{{information.campo17}}</td>
+                <td>{{information.campo18}}</td>
+                <td>{{information.campo19}}</td>
+                <td>{{information.responsable}}</td>
+                <td>{{information.observaciones}}</td>
+                <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfocorterebobinado(information.id_bitcorterebobinado,ordenpro10)">Eliminar</button></td>
+              </tr>
+            </tbody>
+            <tr><p class="text-success">FO-PRO-21 R1 </p></tr>
+          </table>
+        </div>
+      <div class="col-md-12 mb-3">
+        <button class="btn btn-success" (click)="exportexcelCorteRebobinado()">Descargaa el Excel <i class="far fa-file-excel"></i></button>
+      </div>
+    </div>
+    <hr>
+    </div>
+
+    <div *ngIf="exito3">
+      <div class="alert alert-dismissible alert-primary">
+        <h4 style="text-align: center; color: white;">Bitácora Troqueladora</h4>
+      </div>
+      <div class=" col-md-12 mb-3">
+        <form class="needs-validation">
+          <div class="form-row">
+            <div class="col-md-2 mb-3">
+              <label class="text-success">Orden de Producción</label>
+              <select class="form-select" #ordenpro11>
+                <option value="">Selecciona la Orden</option>
+                <option *ngFor="let info of ordersselecttroquelado"
+                        [value]="info.ordenpro">{{info.ordenpro}}</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary" (click)="gettroquelado(ordenpro11)">Verificar Datos</button>
+        </form>
+      </div>
+        <div *ngIf="num11">
+          <div class="table-responsive">
+            <table  class="table table-hover table-bordered table-responsive" style="font-size: 8px;" id="excel-table11">
+              <tr class="table-primary">
+                <th>Operación</th>
+                <th>Fecha Registro</th>
+                <th>Hora Registro</th>
+                <th>Transporte de Velocidad</th>
+                <th>Transporte de rampa</th>
+                <th>Orden y limpieza</th>
+                <th>Maquina conectada y encendida</th>
+                <th>Botón de paro desactivado</th>
+                <th>Guarda abajo</th>
+                <th>Toma de aire abierta</th>
+                <th>Boton azul desactivado</th>
+                <th>Tanque con aceite hidraulico</th>
+                <th>Suajes utilizados en buenas condiciones</th>
+                <th>Navaja lubricada</th>
+                <th>Máquina libre de polvo</th>
+                <th>Ancho resultante de la primer bobina cortada</th>
+                <th>La primer pieza suajada cumple con la forma y dimensiones.</th>
+                <th>Responsable</th>
+                <th>Observaciones</th>
+                <th *ngIf="exito">Acciones</th>
+              </tr>
+              <tbody>
+                <tr *ngFor="let information of operations.bitroquelado" style="font-size: .9em;">
+                  <td>{{information.operacion}}</td>
+                  <td>{{information.fecha}}</td>
+                  <td>{{information.hora}}</td>
+                  <td>{{information.campo1}}</td>
+                  <td>{{information.campo2}}</td>
+                  <td>{{information.campo3}}</td>
+                  <td>{{information.campo4}}</td>
+                  <td>{{information.campo5}}</td>
+                  <td>{{information.campo6}}</td>
+                  <td>{{information.campo7}}</td>
+                  <td>{{information.campo8}}</td>
+                  <td>{{information.campo9}}</td>
+                  <td>{{information.campo10}}</td>
+                  <td>{{information.campo11}}</td>
+                  <td>{{information.campo12}}</td>
+                  <td>{{information.campo13}}</td>
+                  <td>{{information.campo14}}</td>
+                  <td>{{information.responsable}}</td>
+                  <td>{{information.observaciones}}</td>
+                  <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfotroquelado(information.id_bittroqueladora,ordenpro11)">Eliminar</button></td>
+                </tr>
+              </tbody>
+              <tr><p class="text-success">FO-PRO-21 R1 </p></tr>
+            </table>
+          </div>
+        <div class="col-md-12 mb-3">
+          <button class="btn btn-success" (click)="exportexcelTroquelado()">Descargaa el Excel <i class="far fa-file-excel"></i></button>
+        </div>
+      </div>
+      <hr>
+      </div>
+
+
+<!-- ////////////////////////////////////////////////////////// -->
+<div *ngIf="exito2">
+<div class="alert alert-dismissible alert-primary">
+  <h4 style="text-align: center; color: white;">Hoja de inspección de Corte</h4>
+</div>
+<div class=" col-md-12 mb-3">
+  <form class="needs-validation">
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Orden de Producción</label>
+        <select class="form-select" #ordenpro5>
+          <option value="">Selecciona la Orden</option>
+          <option *ngFor="let info of ordersselect"
+                  [value]="info.ordenpro">{{info.ordenpro}}</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="InspectionCorte(ordenpro5)">Verificar Datos</button>
+  </form>
+</div>
+  <div *ngIf="num5">
+    <div class="table-responsive">
+  <table class="table table-hover table-bordered table-responsive" style="font-size: .7em;" id="excel-table5">
+
+    <tr><h6 class="text-success">Papel</h6></tr>
+    <tr class="table-primary">
+    <th>OP</th>
+    <th>Tipo</th>
+    <th>Número de Lote</th>
+    <th>Elaboro</th>
+    <th>Fecha de Captuta</th>
+    <th *ngIf="exito">Acciones</th>
+  </tr>
+  <tr *ngFor="let information of service.papel" style="font-size: .8em;">
+    <td>{{information.ordenpro}}</td>
+    <td>{{information.tipo}}</td>
+    <td>{{information.lote}}</td>
+    <td>{{information.elaboro}}</td>
+    <td>{{information.fecha_creacion|date:'medium':'UTC'}}</td>
+    <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfoPapel(information.id_papel,ordenpro5)">Eliminar</button></td>
+  </tr>
+  <br>
+  <tr></tr>
+  <tr><h6 class="text-success">Folio</h6></tr>
+  <tr class="table-primary">
+    <th>OP</th>
+    <th>Modelo</th>
+    <th>Número de Lote</th>
+    <th>Cantidad</th>
+    <th>Elaboro</th>
+    <th>Fecha de Captuta</th>
+    <th *ngIf="exito">Acciones</th>
+  </tr>
+  <tr *ngFor="let information of service.folio" style="font-size: .8em;">
+    <td>{{information.ordenpro}}</td>
+    <td>{{information.modelo}}</td>
+    <td>{{information.lote}}</td>
+    <td>{{information.cantidad}}</td>
+    <td>{{information.elaboro}}</td>
+    <td>{{information.fecha_creacion|date:'medium':'UTC'}}</td>
+    <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfoFolio(information.id_folio,ordenpro5)">Eliminar</button></td>
+  </tr>
+  <tr></tr>
+<br>
+    <tr><h6 class="text-success">Verificación de Medidas</h6></tr>
+    <tr class="table-primary">
+      <th>OP</th>
+      <th>Número de Parte</th>
+      <th>Descripción</th>
+      <th>Medida de la Hoja</th>
+      <th>Modelo del Folio</th>
+      <th>Dato 1</th>
+      <th>Dato 2</th>
+      <th>Dato 3</th>
+      <th>Dato 4</th>
+      <th>Dato 5</th>
+      <th>Dato 6</th>
+      <th>Dato 7</th>
+      <th>Dato 8</th>
+      <th>Dato 9</th>
+      <th>Dato 10</th>
+      <th>Final</th>
+      <th>Observaciones</th>
+      <th>Elaboro</th>
+      <th>Fecha de Captuta</th>
+      <th *ngIf="exito">Acciones</th>
+    </tr>
+      <tr *ngFor="let information of service.info" style="font-size: .8em;">
+        <td>{{information.ordenpro2}}</td>
+        <td>{{information.num_parte}}</td>
+        <td>{{information.descripcion}}</td>
+        <td>{{information.medida}}</td>
+        <td>{{information.modelo}}</td>
+        <td>{{information.inicial}}</td>
+        <td>{{information.dato1}}</td>
+        <td>{{information.dato2}}</td>
+        <td>{{information.dato3}}</td>
+        <td>{{information.dato4}}</td>
+        <td>{{information.dato5}}</td>
+        <td>{{information.dato6}}</td>
+        <td>{{information.dato7}}</td>
+        <td>{{information.dato8}}</td>
+        <td>{{information.dato9}}</td>
+        <td>{{information.dato10}}</td>
+        <td>{{information.observaciones}}</td>
+        <td>{{information.elaboro}}</td>
+        <td>{{information.fecha_creacion|date:'medium':'UTC'}}</td>
+        <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfomedidas(information.id,ordenpro5)">Eliminar</button></td>
+      </tr>
+      <tr></tr>
+      <br>
+      <tr><h6 class="text-success">Apectos a Vigilar</h6></tr>
+      <tr class="table-primary">
+        <th>OP</th>
+        <th>Dimensiones de las hojas se encuentran dentro de los parametros</th>
+        <th>El folio sin arrugas o dobleces</th>
+        <th>Folio limpio (sin manchas o contaminación)</th>
+        <th>Folio colocado del lado correcto (parte de folio hacia arriba)</th>
+        <th>Folio no se encuentra expuesto (sin papel)</th>
+        <th>Observaciones</th>
+        <th>Elaboro</th>
+        <th>Fecha de Captuta</th>
+        <th *ngIf="exito">Acciones</th>
+      </tr>
+      <tr *ngFor="let information of service.vigilar" style="font-size: .8em;">
+        <td>{{information.ordenpro}}</td>
+        <td>{{information.op1}}</td>
+        <td>{{information.op2}}</td>
+        <td>{{information.op3}}</td>
+        <td>{{information.op4}}</td>
+        <td>{{information.op5}}</td>
+        <td>{{information.observaciones}}</td>
+        <td>{{information.elaboro}}</td>
+        <td>{{information.fecha_creacion|date:'medium':'UTC'}}</td>
+        <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delatevigilar(information.id_vigilar,ordenpro5)">Eliminar</button></td>
+      </tr>
+      <tr></tr>
+      <tr><p class="text-success">FO-PRO-24 R1 </p></tr>
+      <br>
+  </table>
+    </div>
+  <div class=" col-md-12 mb-3">
+    <button class="btn btn-success" (click)="exportexcelInspectionCorte()">Descargaa el Excel <i class="far fa-file-excel"></i></button>
+  </div>
+</div>
+<hr>
+</div>
+<!-- ////////////////////////////////////////////////////////// -->
+<div *ngIf="exito2">
+<div class="alert alert-dismissible alert-primary">
+  <h4 style="text-align: center; color: white;">Hoja de inspección y Liberación de producto</h4>
+</div>
+<div class=" col-md-12 mb-3">
+  <form class="needs-validation">
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Orden de Producción</label>
+        <select class="form-select" #ordenpro6>
+          <option value="">Selecciona la Orden</option>
+          <option *ngFor="let info of ordersselect"
+                  [value]="info.ordenpro">{{info.ordenpro}}</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="Inspection2(ordenpro6)">Verificar Datos</button>
+  </form>
+</div>
+  <div *ngIf="num6">
+    <div class="table-responsive">
+  <table class="table table-hover table-bordered table-responsive" style="font-size: .7em;" id="excel-table6">
+
+    <tr style="text-align: center;"><h6 class="text-success">Papel</h6></tr>
+    <tr class="table-primary">
+    <th>OP</th>
+    <th>Tipo</th>
+    <th>Número de Lote</th>
+    <th>Elaboro</th>
+    <th>Fecha Captura</th>
+  </tr>
+  <tr *ngFor="let information of service.papel" style="font-size: .8em;">
+    <td>{{information.ordenpro}}</td>
+    <td>{{information.tipo}}</td>
+    <td>{{information.lote}}</td>
+    <td>{{information.elaboro}}</td>
+    <td>{{information.fecha_creacion |date:'medium':'UTC'}}</td>
+  </tr>
+  <br>
+  <tr></tr>
+  <tr><h6 class="text-success">Folio</h6></tr>
+  <tr class="table-primary">
+    <th>OP</th>
+    <th>Modelo</th>
+    <th>Número de Lote</th>
+    <th>Cantidad</th>
+    <th>Elaboro</th>
+    <th>Fecha Captura</th>
+  </tr>
+  <tr *ngFor="let information of service.folio" style="font-size: .8em;">
+    <td>{{information.ordenpro}}</td>
+    <td>{{information.modelo}}</td>
+    <td>{{information.lote}}</td>
+    <td>{{information.cantidad}}</td>
+    <td>{{information.elaboro}}</td>
+    <td>{{information.fecha_creacion |date:'medium':'UTC'}}</td>
+  </tr>
+  <tr></tr>
+<br>
+
+<tr><h6 class="text-success">Suaje</h6></tr>
+<tr class="table-primary">
+  <th>OP</th>
+  <th>Dimnsiones correctas de las hojas</th>
+  <th>Suaje corresponde al número de parte</th>
+  <th>Alineación de corte</th>
+  <th>Hojas cortadas, acomodadas del lado correcto</th>
+  <th>Observaciones</th>
+  <th>Elaboro</th>
+  <th>Fecha Captura</th>
+  <th *ngIf="exito">Acciones</th>
+</tr>
+<tr *ngFor="let information of service.suaje" style="font-size: .8em;">
+  <td>{{information.ordenpro}}</td>
+  <td>{{information.op1}}</td>
+  <td>{{information.op2}}</td>
+  <td>{{information.op3}}</td>
+  <td>{{information.op4}}</td>
+  <td>{{information.observaciones}}</td>
+  <td>{{information.elaboro}}</td>
+  <td>{{information.fecha_creacion |date:'medium':'UTC'}}</td>
+  <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delatevigilar2(information.id_vigilar,ordenpro6)">Eliminar</button></td>
+</tr>
+<tr></tr>
+<br>
+    <tr><h6 class="text-success">Verificación de Suaje</h6></tr>
+    <tr class="table-primary">
+      <th>OP</th>
+      <th>Número de Parte</th>
+      <th>Descripción</th>
+      <th>Número de ayuda visual</th>
+      <th>Dato 1</th>
+      <th>Dato 2</th>
+      <th>Dato 3</th>
+      <th>Dato 4</th>
+      <th>Dato 5</th>
+      <th>Dato 6</th>
+      <th>Dato 7</th>
+      <th>Dato 8</th>
+      <th>Dato 9</th>
+      <th>Dato 10</th>
+      <th>Final</th>
+      <th>Observaciones</th>
+      <th>Elaboro</th>
+      <th>Fecha Captura</th>
+      <th *ngIf="exito">Acciones</th>
+    </tr>
+      <tr *ngFor="let information of service.info" style="font-size: .8em;">
+        <td>{{information.ordenpro2}}</td>
+        <td>{{information.num_parte}}</td>
+        <td>{{information.descripcion}}</td>
+        <td>{{information.num_visual}}</td>
+        <td>{{information.inicial}}</td>
+        <td>{{information.dato1}}</td>
+        <td>{{information.dato2}}</td>
+        <td>{{information.dato3}}</td>
+        <td>{{information.dato4}}</td>
+        <td>{{information.dato5}}</td>
+        <td>{{information.dato6}}</td>
+        <td>{{information.dato7}}</td>
+        <td>{{information.dato8}}</td>
+        <td>{{information.dato9}}</td>
+        <td>{{information.dato10}}</td>
+        <td>{{information.observaciones}}</td>
+        <td>{{information.elaboro}}</td>
+        <td>{{information.fecha_creacion|date:'medium':'UTC'}}</td>
+        <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfomedidas2(information.id,ordenpro6)">Eliminar</button></td>
+      </tr>
+      <tr></tr>
+      <br>
+
+    <tr><h6 class="text-success">Empaquetado</h6></tr>
+    <tr class="table-primary">
+      <th>OP</th>
+      <th>Etiqueta corresponde al número de parte</th>
+      <th>Cantidad corresponde a la orden de producción</th>
+      <th>Dimensión del empaque corresponde al indicado a la hoja de ayuda visual </th>
+      <th>Observaciones</th>
+      <th>Elaboro</th>
+      <th>Fecha Captura</th>
+      <th *ngIf="exito">Acciones</th>
+    </tr>
+    <tr *ngFor="let information of service.empaque" style="font-size: .8em;">
+      <td>{{information.ordenpro}}</td>
+      <td>{{information.op1}}</td>
+      <td>{{information.op2}}</td>
+      <td>{{information.op3}}</td>
+      <td>{{information.observaciones}}</td>
+      <td>{{information.elaboro}}</td>
+      <td>{{information.fecha_creacion |date:'medium':'UTC'}}</td>
+      <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateempaque(information.id_vigilar,ordenpro6)">Eliminar</button></td>
+    </tr>
+    <tr></tr>
+    <br>
+    <tr><h6 class="text-success">Liberación de Producto</h6></tr>
+    <tr class="table-primary">
+      <th>OP</th>
+      <th>Cantidad</th>
+      <th>Empaque</th>
+      <th>No. de parte</th>
+      <th>Orden de producción</th>
+      <th>Etiqueta con el modelo correcto</th>
+      <th>Cajas Aprobadas</th>
+      <th>Cajas Rechazadas</th>
+      <th>Total</th>
+      <th>Observaciones</th>
+      <th>Elaboro</th>
+      <th>Fecha Captura</th>
+      <th *ngIf="exito">Acciones</th>
+    </tr>
+    <tr *ngFor="let information of service.vigilar" style="font-size: .8em;">
+      <td>{{information.ordenpro}}</td>
+      <td>{{information.op1}}</td>
+      <td>{{information.op2}}</td>
+      <td>{{information.op3}}</td>
+      <td>{{information.op4}}</td>
+      <td>{{information.op5}}</td>
+      <td>{{information.cajas_apro}}</td>
+      <td>{{information.cajas_def}}</td>
+      <td>{{information.total}}</td>
+      <td>{{information.observaciones}}</td>
+      <td>{{information.elaboro}}</td>
+      <td>{{information.fecha_creacion |date:'medium':'UTC'}}</td>
+      <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateliberacion(information.id_vigilar,ordenpro6)">Eliminar</button></td>
+    </tr>
+    <tr></tr>
+    <br>
+    <tr></tr>
+      <tr><h6 class="text-success">Responsable</h6></tr>
+      <tr class="table-primary">
+      <th>OP</th>
+      <th>Responsable</th>
+      <th>Producto Conforme</th>
+      <th>Aplica AC</th>
+      <th>Número de AC</th>
+      <th>Fecha de Captura</th>
+      <!-- <th>elaboro</th> -->
+      <!-- <th>Fecha</th> -->
+      <th *ngIf="exito">Acciones</th>
+    </tr>
+    <tr *ngFor="let information of service.salida2" style="font-size: .8em;">
+      <td>{{information.ordenpro}}</td>
+      <td>{{information.inspection}}</td>
+      <td>{{information.op1}}</td>
+      <td>{{information.op2}}</td>
+      <td>{{information.num_ac}}</td>
+      <!-- <td>{{information.elaboro}}</td> -->
+       <td>{{information.fecha |date:'medium':'UTC'}}</td>
+       <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delatesalida2(information.id_salida,ordenpro6)">Eliminar</button></td>
+    </tr>
+    <tr></tr>
+    <tr><p class="text-success">FO-PRO-03 R3 </p></tr>
+  </table>
+</div>
+  <div class=" col-md-12 mb-3">
+    <button class="btn btn-success" (click)="exportexcelLiberacion()">Descargaa el Excel <i class="far fa-file-excel"></i></button>
+  </div>
+</div>
+<hr>
+</div>
+<!-- ////////////////////////////////////////////////////////// -->
+<div *ngIf="exito2">
+<div class="alert alert-dismissible alert-primary">
+  <h4 style="text-align: center; color: white; ">Lista de Inspección</h4>
+</div>
+<div class=" col-md-12 mb-3">
+  <form class="needs-validation">
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Orden de Producción</label>
+        <select class="form-select" #ordenpro8>
+          <option value="">Selecciona la Orden</option>
+          <option *ngFor="let info of ordersselect"
+                  [value]="info.ordenpro">{{info.ordenpro}}</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="getLista(ordenpro8)">Verificar Datos</button>
+  </form>
+</div>
+<div *ngIf="num8">
+    <div  class="table-responsive">
+      <table class="table table-hover table-bordered table-responsive" style="font-size: .7em;" id="excel-table8">
+        <tr class="table-primary">
+          <th>Motivo de inspección</th>
+          <th>Elaboro</th>
+          <th>Cliente</th>
+          <th>Fecha</th>
+          <th>No. de identificación</th>
+          <th>Lote/ No. Parte/ Especificación</th>
+          <th>Observaciones</th>
+          <th>Número</th>
+          <th>Punto de Inspección</th>
+          <th>Cumple</th>
+          <th>Comentarios</th>
+          <th *ngIf="exito">Acciones</th>
+        </tr>
+          <tr *ngFor="let information of service.lista" style="font-size: .9em;">
+            <td>{{information.motivo}}</td>
+            <td>{{information.elabora}}</td>
+            <td>{{information.cliente}}</td>
+            <td>{{information.fecha}}</td>
+            <td>{{information.identificacion}}</td>
+            <td>{{information.lote}}</td>
+            <td>{{information.observaciones}}</td>
+            <td>{{information.numero}}</td>
+            <td>{{information.inspection}}</td>
+            <td>{{information.cumple}}</td>
+            <td>{{information.comentarios}}</td>
+            <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfolistinspection(information.id_list_inspection,ordenpro8)">Eliminar</button></td>
+          </tr>
+          <tr><p class="text-success">FO-ACC-05 R0 </p></tr>
+      </table>
+    </div>
+    <div class=" col-md-12 mb-3">
+      <button class="btn btn-success" (click)="exportexcellista()">Descarga el Excel <i class="far fa-file-excel"></i></button>
+    </div>
+</div>
+</div>
+<!-- ////////////////////////////////////////////////////////// -->
+
+<div *ngIf="exito2">
+<div class="alert alert-dismissible alert-primary">
+  <h4 style="text-align: center; color: white; ">Hoja de control de Calidad</h4>
+</div>
+<div class=" col-md-12 mb-3">
+  <form class="needs-validation">
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Orden de Producción</label>
+        <select class="form-select" #ordenpro7>
+          <option value="">Selecciona la Orden</option>
+          <option *ngFor="let info of ordersselect"
+                  [value]="info.ordenpro">{{info.ordenpro}}</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="ControlCalidad(ordenpro7)">Verificar Datos</button>
+  </form>
+</div>
+  <div *ngIf="num7">
+    <div class="table-responsive">
+  <table class="table table-hover table-bordered table-responsive" style="font-size: .7em;" id="excel-table7">
+<tr></tr>
+    <tr><h6 class="text-success">Descripcion General</h6></tr>
+    <tr class="table-primary">
+    <th>Cliente</th>
+    <th>Planta</th>
+    <th>Orden de Producción</th>
+    <!-- <th>elaboro</th> -->
+    <!-- <th>Fecha</th> -->
+  </tr>
+  <tr *ngFor="let information of service.control2" style="font-size: .8em;">
+    <td>{{information.cliente}}</td>
+    <td>{{information.sucursal}}</td>
+    <td>{{information.ordenpro2}}</td>
+    <!-- <td>{{information.elaboro}}</td> -->
+    <!-- <td>{{information.fecha}}</td> -->
+  </tr>
+<tr></tr>
+<tr><h6 class="text-success">Registro</h6></tr>
+    <tr class="table-primary">
+      <th>OP</th>
+      <th>Número de Parte</th>
+      <th>Cantidad</th>
+      <th>Letra / Código</th>
+      <th>Tamaño de la Muestra</th>
+      <th>Piezas Aprobadas</th>
+      <th>Piezas Rechazadas</th>
+      <th>Total</th>
+      <th>Observaciones</th>
+      <th>Elabaro</th>
+      <th>Fecha</th>
+      <th *ngIf="exito">Acciones</th>
+    </tr>
+      <tr *ngFor="let information of service.control" style="font-size: .8em;">
+        <td>{{information.ordenpro2}}</td>
+        <td>{{information.num_parte}}</td>
+        <td>{{information.cantidad}}</td>
+        <td>{{information.codigo}}</td>
+        <td>{{information.muestra}}</td>
+        <td>{{information.piezasA}}</td>
+        <td>{{information.piezasR}}</td>
+        <td>{{information.total}}</td>
+        <td>{{information.observaciones}}</td>
+        <td>{{information.elaboro}}</td>
+        <td>{{information.fecha_ini|date:'medium':'UTC'}}</td>
+        <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delateinfocontrolcalidad(information.id_liberacion,ordenpro7)">Eliminar</button></td>
+      </tr>
+<tr></tr>
+      <tr><h6 class="text-success">Responsable</h6></tr>
+      <tr class="table-primary">
+      <th>OP</th>
+      <th>Responsable</th>
+      <th>Producto Conforme</th>
+      <th>Aplica AC</th>
+      <th>Número de AC</th>
+      <th>Fecha de Captura</th>
+      <!-- <th>elaboro</th> -->
+      <!-- <th>Fecha</th> -->
+      <th *ngIf="exito">Acciones</th>
+    </tr>
+    <tr *ngFor="let information of service.salida" style="font-size: .8em;">
+      <td>{{information.ordenpro}}</td>
+      <td>{{information.inspection}}</td>
+      <td>{{information.op1}}</td>
+      <td>{{information.op2}}</td>
+      <td>{{information.num_ac}}</td>
+      <!-- <td>{{information.elaboro}}</td> -->
+       <td>{{information.fecha |date:'medium':'UTC'}}</td>
+       <td *ngIf="exito"><button class="btn btn-danger btn-sm" (click)="delatesalida(information.id_salida,ordenpro7)">Eliminar</button></td>
+    </tr>
+    <tr><p class="text-success">FO-ACC-09 R0 </p></tr>
+  </table>
+    </div>
+  <div class=" col-md-12 mb-3">
+    <button class="btn btn-success" (click)="exportexcelControlCalidad()">Descarga el Excel <i class="far fa-file-excel"></i></button>
+  </div>
+</div>
+<br>
+</div>

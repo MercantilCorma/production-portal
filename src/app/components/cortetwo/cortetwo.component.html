@@ -1,0 +1,246 @@
+<!-- <p>corte works!</p> -->
+<app-nav></app-nav>
+
+<div class="">
+  <h1 style="text-align: center">Bitácora de Operación</h1>
+  <h3 style="text-align: center">Máquina: Corte</h3>
+<!--   <h4 style="text-align: center">
+    Orden de Producción:
+    <a style="color: #33c4a8; pointer-events: none" href="">{{ ordenpro }}</a>
+  </h4> -->
+</div>
+<hr />
+<div class="col-md-12 mb-3">
+  <form class="needs-validation" [formGroup]="miForm">
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Operación</label>
+        <select class="form-select" formControlName="operacion">
+          <option value="">Selecciona la Operación</option>
+          <option *ngFor="let client of operaciones"
+          [value]="client">{{client}}</option>
+        </select>
+      </div>
+      <input type="hidden" ngModel="{{ now | date: 'dd-MM-yyyy' }}" class="form-control" formControlName="ordenpro" class="form-control" readonly/>
+      <input type="hidden" ngModel="{{ now | date: 'dd-MM-yyyy' }}" class="form-control" formControlName="fecha" class="form-control" readonly/>
+      <input type="hidden" ngModel="{{ now | date: 'HH:mm:ss' }}" class="form-control" formControlName="hora" readonly/>
+      <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="responsable"/>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Número de Artículo</label>
+        <input type="number" min="0" class="form-control" formControlName="articulo" />
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Velocidad de Hojeo</label>
+        <input type="text" class="form-control" formControlName="velocidad" />
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="text-success">Observaciones</label>
+        <input type="text" class="form-control" formControlName="observacion" />
+      </div>
+    </div>
+    <hr />
+    <div class="container">
+      <h5 style="text-align: center; color: #33c4a8">
+        Llenar la siguiente información
+      </h5>
+      <br />
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Orden y Limpieza</label>
+        <select class="form-select" formControlName="campo1">
+          <option value="">Orden y Limpieza</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+         <label class="text-success">Máquina conectada/encendida</label>
+        <select class="form-select" formControlName="campo2">
+          <option value="">Máquina conectada/encendida</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Botón de paro desactivado</label>
+        <select class="form-select" formControlName="campo3">
+          <option value="">Botón de paro desactivado</option>
+          <option>Si</option>
+          <option>No</option>
+
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+         <label class="text-success">Posición correcta del porta rollos</label>
+        <select class="form-select" formControlName="campo4">
+          <option value="">Posición correcta del porta rollos</option>
+          <option>Si</option>
+          <option>No</option>
+          <option>NA</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+         <label class="text-success">Correcta alineación de rollos</label>
+        <select class="form-select" formControlName="campo5">
+          <option value="">Correcta alineación de rollos</option>
+          <option>Si</option>
+          <option>No</option>
+          <option>NA</option>
+        </select>
+      </div>
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Contador de Hojas en 0</label>
+        <select class="form-select" formControlName="campo6">
+          <option value="">Contador de Hojas</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Máquina Libre de Polvo</label>
+        <select class="form-select" formControlName="campo7">
+          <option value="">Máquina Libre de Polvo</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-2 mb-3">
+         <label class="text-success">Navaja lubricada</label>
+        <select class="form-select" formControlName="campo8">
+          <option value="">Navaja lubricada</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-2 mb-3">
+         <label class="text-success">Toma de aire cerrada</label>
+        <select class="form-select" formControlName="campo9">
+          <option value="">Toma de aire cerrada</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-12 mb-1">
+        <br>
+        <p style="text-align: center; color:red">Medida del primer corte al iniciar un arranque.</p>
+      </div>
+      <div class="col-md-1 mb-3">
+        <label class="text-success">Medida 1</label>
+        <input type="number" min="0" class="form-control" formControlName="campo10" />
+      </div>
+      <div class="col-md-1 mb-3">
+        <label class="text-success">Medida 2</label>
+        <input type="number" min="0" class="form-control" formControlName="campo11" />
+      </div>
+      <div class="col-md-1 mb-3">
+        <label class="text-success">Medida 3</label>
+        <input type="number" min="0" class="form-control" formControlName="campo12" />
+      </div>
+      <div class="col-md-1 mb-3">
+        <label class="text-success">Medida 4</label>
+        <input type="number" min="0" class="form-control" formControlName="campo13" />
+      </div>
+      <div class="col-md-1 mb-3">
+        <label class="text-success">Medida 5</label>
+        <input type="number" min="0" class="form-control" formControlName="campo14" />
+      </div>
+      <div class="col-md-5 mb-3">
+        <label class="text-success">Las medidas se encuentran dentro de las tolerancias pactadas</label>
+        <input type="text"  class="form-control" formControlName="campo15" />
+      </div>
+    </div>
+    <div class="form-row  col-md-12 mb-3">
+      <div class="col-md-6 mb-3">
+       <button class="btn btn-primary" (click)="Postbitcorte()">Insertar Datos</button>
+     </div>
+<!--       <div class="text-right col-md-6 mb-3">
+        <button class="btn btn-primary" type="submit" (click)="bit2()" target="_blank">Inspección de Corte</button>
+     </div> -->
+    </div>
+<!--         <h3>Respuestas Formulario</h3>
+          <pre>Valid:{{miForm.valid}}</pre>
+          <pre>{{miForm.value | json}}</pre> -->
+  </form>
+</div>
+<div class="table-responsive">
+<table  class="table table-hover table-bordered table-responsive" style="font-size: .7em;">
+  <thead class="table-primary">
+    <th>Operación</th>
+    <th>Fecha</th>
+    <th>Hora</th>
+    <th>Número de artículo</th>
+    <th>Velocidad de Hojeo</th>
+    <th>Orden de Limpieza</th>
+    <th>Máquina Conectada</th>
+    <th>Botón de paro Enc.</th>
+    <th>Porta Rollos Correcto</th>
+    <th>Alineación de Rollos</th>
+    <th>Contador de Hojas en 0</th>
+    <th>Máquina libre de polvo</th>
+    <th>Navaja Lubricada</th>
+    <th>Toma de aire cerrada</th>
+    <th>Medida 1</th>
+    <th>Medida 2</th>
+    <th>Medida 3</th>
+    <th>Medida 4</th>
+    <th>Medida 5</th>
+    <th>Las medidas se encuentran dentro de las tolerancias</th>
+    <th>Responsable</th>
+    <th>Observaciones</th>
+    <th>Acción</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let information of clientesServices.infocorte" style="font-size: .8em;">
+      <td>{{ information.operacion }}</td>
+      <td>{{ information.fecha }}</td>
+      <td>{{ information.hora }}</td>
+      <td>{{ information.articulo }}</td>
+      <td>{{ information.velocidad }}</td>
+      <td>{{ information.campo1 }}</td>
+      <td>{{ information.campo2 }}</td>
+      <td>{{ information.campo3 }}</td>
+      <td>{{ information.campo4 }}</td>
+      <td>{{ information.campo5 }}</td>
+      <td>{{ information.campo6 }}</td>
+      <td>{{ information.campo7 }}</td>
+      <td>{{ information.campo8 }}</td>
+      <td>{{ information.campo9 }}</td>
+      <td>{{ information.campo10 }}</td>
+      <td>{{ information.campo11 }}</td>
+      <td>{{ information.campo12 }}</td>
+      <td>{{ information.campo13 }}</td>
+      <td>{{ information.campo14 }}</td>
+      <td>{{ information.campo15 }}</td>
+      <td>{{ information.responsable }}</td>
+      <td>{{ information.observacion }}</td>
+      <td><button class="btn btn-danger btn-sm" (click)="delateinfo(information.id_corte)">Eliminar</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<!-- <div *ngIf="num" class="container col-md-12 mb-3">
+  <button class="btn btn-primary" type="submit" (click)="finalizar()">Finalizar</button>
+</div> -->
+
+<div class="form-row  col-md-12 mb-3">
+  <div class="col-md-6 mb-3">
+    <button class="btn btn-primary" type="submit" (click)="finalizar()">Finalizar</button>
+  </div>
+
+<!--     <div class="text-right col-md-6 mb-3">
+      <button class="btn btn-primary" type="submit" (click)="bit2()" target="_blank">Inspección de Corte</button>
+    </div> -->
+</div>

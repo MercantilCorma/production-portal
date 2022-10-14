@@ -1,0 +1,64 @@
+<!-- <p>view works!</p> -->
+<app-nav></app-nav>
+<br>
+
+<div class="table-responsive">
+  <table class="table table-hover table-bordered table-responsive-sm" style="font-size: .7em;" id="excel-table">
+    <tr><h4 style="text-align: center; color: #2C3F50;">Orden de Producción</h4></tr>
+    <tr class="table-primary">
+      <th>OP</th>
+      <th>Cliente</th>
+      <th>Ciudad</th>
+      <th>sucursal</th>
+      <th>Fecha Entrega</th>
+      <th>Semana Entrega</th>
+      <th>Fecha Creación</th>
+      <th>No. de Articulo</th>
+      <th>No. de Parte</th>
+      <th>Descripción</th>
+      <th>No. de Orden de Compra</th>
+      <th>Clave</th>
+      <th>Medida (cm)</th>
+      <th>Piezas X Medida</th>
+      <th>Hojas a Cortar</th>
+      <th>No. de Paquetes</th>
+      <th>Cantidad</th>
+      <th>Piezas X Caja</th>
+      <th>cajas a Utilizar</th>
+    </tr>
+      <tr *ngFor="let information of service.ordendepro" style="font-size: .8em;">
+        <td>{{information.ordenpro}}</td>
+        <td>{{information.nombre_cliente}}</td>
+        <td>{{information.ciudad}}</td>
+        <td>{{information.sucursal}}</td>
+        <td>{{information.fecha_entrega}}</td>
+        <td>{{information.sem_entrega}}</td>
+        <td>{{information.fecha_creacion|date:'medium':'UTC'}}</td>
+        <td>{{information.num_articulo}}</td>
+        <td>{{information.num_parte}}</td>
+        <td>{{information.descripcion}}</td>
+        <td>{{information.num_orden_com}}</td>
+        <td>{{information.clave}}</td>
+        <td>{{information.medida}}</td>
+        <td>{{information.pieza_medida}}</td>
+        <td>{{information.hojas_cortar}}</td>
+        <td>{{information.num_paquetes}}</td>
+        <td>{{information.cantidad}}</td>
+        <td>{{information.piezas_caja}}</td>
+        <td>{{information.cajas_utilizar}}</td>
+      </tr>
+      <br>
+        <tr class="table-primary">
+        <th>Total</th>
+        <th>Peso Bruto</th>
+        <th>Peso Neto</th>
+        <th>Total de Cajas</th>
+      </tr>
+      <tr *ngFor="let information of service.ordendeproCal" style="font-size: .8em;">
+        <td>{{information.total}}</td>
+        <td>{{information.peso_bruto}}</td>
+        <td>{{information.peso_neto}}</td>
+        <td>{{information.total_cajas}}</td>
+      </tr>
+  </table>
+</div>

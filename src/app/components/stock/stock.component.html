@@ -1,0 +1,139 @@
+<!-- <p>stock works!</p> -->
+<app-nav></app-nav>
+<br>
+<div class=" col-md-12 mb-3">
+<form class="needs-validation" [formGroup]="miForm">
+<div class="form-row" >
+  <div class="col-md-12 mb-3">
+    <h5 class="text-info" style="text-align: center;">Actualización de Inventario</h5>
+  </div>
+
+  <div class="col-md-2 mb-3">
+    <label class="text-success">Número de Parte</label>
+    <input type="text"  class="form-control"  formControlName="no_parte">
+  </div>
+  <div class="col-md-1 mb-3">
+    <label class="text-success">Cantidad</label>
+    <input type="number" min="0"  class="form-control" formControlName="stock">
+  </div>
+  <div class="col-md-3 mb-3">
+    <label class="text-success">Observaciones</label>
+    <input type="text"  class="form-control"  formControlName="observaciones">
+  </div>
+  <div class="text-left col-md-2">
+    <label style="color: white;">button</label>
+    <button class="btn btn-primary form-control" type="submit" (click)="updateADD()" >Añadir a Stock</button>
+   </div>
+   <div class="text-left col-md-2">
+    <label style="color: white;">button</label>
+    <button class="btn btn-primary form-control" type="submit" (click)="updateResta()" >Quitar a Stock</button>
+   </div>
+   <div class="text-left col-md-2">
+    <label style="color: white;">button</label>
+    <button class="btn btn-primary form-control" type="submit" (click)="updateObserva()">Añadir Comentarios</button>
+   </div>
+
+</div>
+</form>
+<!--     <h3>Respuestas Formulario</h3>
+  <pre>Valid:{{miForm.valid}}</pre>
+  <pre>{{miForm.value | json}}</pre> -->
+</div>
+<div class="col-md-12 mb-3">
+  <form class="needs-validation" [formGroup]="miForm2">
+  <div class="form-row">
+      <div class="text-left col-md-2">
+        <!-- <label style="color: white;">button</label> -->
+        <button class="btn btn-primary form-control" type="submit" (click)="view()">Añadir No. de Parte</button>
+       </div>
+       <div *ngIf="num" class="text-left col-md-2">
+        <!-- <label style="color: white;">button</label> -->
+        <button class="btn btn-primary form-control" type="submit" (click)="ocultar()">Ocultar</button>
+       </div>
+    </div>
+      <br>
+    <div *ngIf="num" class="form-row">
+          <div class="col-md-2 mb-3">
+            <label class="text-success">Planta</label>
+              <select class="form-select" formControlName="plant">
+                <option value="">Planta</option>
+                <option>Hella PL7 Irapuato</option>
+                <option>Hella PL5 Guadalajara</option>
+                <option>Hella PL6 Guadalajara</option>
+                <option>Magneti Marelli</option>
+                <option>Seal&Foam</option>
+                <option>KH Mexico</option>
+                <option>NA</option>
+              </select>
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">Número de Parte</label>
+            <input type="text" class="form-control" formControlName="no_parte">
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">Descripción</label>
+            <input type="text" class="form-control" formControlName="descrip">
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">Número de Orden</label>
+            <input type="text" class="form-control" formControlName="no_orden">
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">Clave</label>
+            <input type="text" class="form-control" formControlName="clave">
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">Medida</label>
+            <input type="text" class="form-control" formControlName="medida">
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">Piezas X Medida</label>
+            <input type="number" class="form-control" formControlName="pieza_medida">
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">No. de Articulo</label>
+            <input type="number" class="form-control" formControlName="articulo">
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">Piezas X Caja</label>
+            <input type="number" class="form-control" formControlName="pieza_caja">
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">Nùmero de ayuda visual</label>
+            <input type="text" class="form-control" formControlName="num_visual">
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">stock</label>
+            <input type="number" class="form-control" formControlName="stock">
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="text-success">observaciones</label>
+            <input type="text" class="form-control" formControlName="observaciones">
+          </div>
+          <div class="text-left col-md-2">
+            <button class="btn btn-primary form-control" type="submit" (click)="Post()" [disabled]="!miForm2.valid">Insertar Datos</button>
+           </div>
+    </div>
+  </form>
+</div>
+
+<div class="table-responsive">
+<table class="table table-hover table-bordered table-responsive-sm" style="font-size: .9em;">
+  <thead class="table-primary">
+    <th>Sucursal ó Planta</th>
+    <th>Número de Parte</th>
+    <th>Descripción</th>
+    <th>Stock Disponible</th>
+    <th>Observaciones</th>
+  </thead>
+  <tbody >
+    <tr *ngFor="let information of service.inventario" style="font-size: .9em;">
+      <td>{{information.plant}}</td>
+      <td>{{information.no_parte}}</td>
+      <td>{{information.descrip}}</td>
+      <td>{{information.stock}}</td>
+      <td>{{information.observaciones}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>

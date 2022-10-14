@@ -1,0 +1,208 @@
+<!-- <p>troquelado works!</p> -->
+<app-nav></app-nav>
+<br>
+
+<div class="">
+  <h1 style="text-align: center">Bitácora de Operación</h1>
+  <h3 style="text-align: center">Máquina: Troqueladora</h3>
+<!--   <h4 style="text-align: center;">Orden de Producción: <a style="color: #33C4A8; pointer-events: none;" href="">{{ordenpro}}</a></h4> -->
+</div>
+<hr>
+<div class="col-md-12 mb-3">
+  <form class="needs-validation" [formGroup]="miForm">
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Operación</label>
+        <select class="form-select" formControlName="operacion">
+          <option value="">Operación</option>
+          <option>Arranque</option>
+          <option>Paro de Actividad</option>
+          <option>Cambio de Parámetros</option>
+        </select>
+      </div>
+        <!-- <input type="hidden" [(ngModel)]="ordenpro" class="form-control" formControlName="ordenpro" class="form-control" readonly> -->
+        <input type="hidden" ngModel="{{now|date:'dd-MM-yyyy'}}" class="form-control" formControlName="ordenpro" class="form-control" readonly>
+        <input type="hidden" ngModel="{{now|date:'dd-MM-yyyy'}}" class="form-control" formControlName="fecha" class="form-control" readonly>
+        <input type="hidden" ngModel="{{now|date:'HH:mm:ss'}}" class="form-control" formControlName="hora" readonly>
+        <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="responsable">
+
+        <div class="col-md-2 mb-3">
+          <label class="text-success">Transporte de Velocidad</label>
+          <input type="text" class="form-control" formControlName="campo1">
+        </div>
+        <div class="col-md-2 mb-3">
+          <label class="text-success">Transporte de rampa</label>
+          <input type="text" class="form-control" formControlName="campo2">
+        </div>
+    <!-- <div class="form-row"> -->
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Orden y Limpieza</label>
+        <select class="form-select" formControlName="campo3">
+          <option value="">Orden y Limpieza</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Maquina conectada y encendida</label>
+        <select class="form-select" formControlName="campo4">
+          <option value="">Maquina conectada y encendida</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Botón de paro desactivado</label>
+        <select class="form-select" formControlName="campo5">
+          <option value="">Botón de paro desactivado</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Guarda abajo</label>
+        <select class="form-select" formControlName="campo6">
+          <option value="">Guarda abajo</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Toma de aire abierta</label>
+        <select class="form-select" formControlName="campo7">
+          <option value="">Toma de aire abierta</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Boton azul desactivado</label>
+        <select class="form-select" formControlName="campo8">
+          <option value="">Boton azul desactivado</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Tanque con aceite hidraulico</label>
+        <select class="form-select" formControlName="campo9">
+          <option value="">Tanque con aceite hidraulico</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Suajes utilizados en buenas condiciones</label>
+        <select class="form-select" formControlName="campo10">
+          <option value="">Suajes utilizados en buenas condiciones</option>
+          <option>Si</option>
+          <option>No</option>
+          <option>NA</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Navaja lubricada</label>
+        <select class="form-select" formControlName="campo11">
+          <option value="">Navaja lubricada</option>
+          <option>Si</option>
+          <option>No</option>
+          <option>NA</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Máquina libre de polvo</label>
+        <select class="form-select" formControlName="campo12">
+          <option value="">Máquina libre de polvo</option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-5 mb-3">
+        <label class="text-success">Ancho resultante de la primer bobina cortada al iniciar un arranque (cm). Si aplica. </label>
+        <input type="text" class="form-control" formControlName="campo13">
+      </div>
+      <div class="col-md-7 mb-3">
+        <label class="text-success">La primer pieza suajada al iniciar un arranque cumple con la forma y dimensiones de la plantilla de referencia. Si aplica.</label>
+        <input type="text" class="form-control" formControlName="campo14">
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Observaciones</label>
+        <input type="text" class="form-control" formControlName="observaciones">
+      </div>
+    <!-- </div> -->
+  </div>
+<button class="btn btn-primary" (click)="Post()" [disabled]="!miForm.valid">Insertar Datos</button>
+
+<!--     <h3>Respuestas Formulario</h3>
+  <pre>Valid:{{miForm.valid}}</pre>
+  <pre>{{miForm.value | json}}</pre> -->
+  </form>
+</div>
+<div  class="table-responsive">
+  <table  class="table table-hover table-bordered table-responsive" style="font-size: 8px;">
+    <thead class="table-primary">
+      <th>Operación</th>
+      <th>Fecha Registro</th>
+      <th>Hora Registro</th>
+      <th>Transporte de Velocidad</th>
+      <th>Transporte de rampa</th>
+      <th>Orden y limpieza</th>
+      <th>Maquina conectada y encendida</th>
+      <th>Botón de paro desactivado</th>
+      <th>Guarda abajo</th>
+      <th>Toma de aire abierta</th>
+      <th>Boton azul desactivado</th>
+      <th>Tanque con aceite hidraulico</th>
+      <th>Suajes utilizados en buenas condiciones</th>
+      <th>Navaja lubricada</th>
+      <th>Máquina libre de polvo</th>
+      <th>Ancho resultante de la primer bobina cortada</th>
+      <th>La primer pieza suajada cumple con la forma y dimensiones.</th>
+      <th>Responsable</th>
+      <th>Observaciones</th>
+      <th>Acción</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let information of operations.bitroquelado" style="font-size: .9em;">
+        <td>{{information.operacion}}</td>
+        <td>{{information.fecha}}</td>
+        <td>{{information.hora}}</td>
+        <td>{{information.campo1}}</td>
+        <td>{{information.campo2}}</td>
+        <td>{{information.campo3}}</td>
+        <td>{{information.campo4}}</td>
+        <td>{{information.campo5}}</td>
+        <td>{{information.campo6}}</td>
+        <td>{{information.campo7}}</td>
+        <td>{{information.campo8}}</td>
+        <td>{{information.campo9}}</td>
+        <td>{{information.campo10}}</td>
+        <td>{{information.campo11}}</td>
+        <td>{{information.campo12}}</td>
+        <td>{{information.campo13}}</td>
+        <td>{{information.campo14}}</td>
+        <td>{{information.responsable}}</td>
+        <td>{{information.observaciones}}</td>
+        <td><button class="btn btn-danger btn-sm" (click)="delateinfo(information.id_bittroqueladora)">Eliminar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--   <div *ngIf="num" class="container col-md-12 mb-3">
+    <button class="btn btn-primary" type="submit" (click)="finalizar()">Finalizar</button>
+  </div> -->
+  <div class="form-row  col-md-12 mb-3">
+    <div class="col-md-6 mb-3">
+      <button class="btn btn-primary" type="submit" (click)="finalizar()">Finalizar</button>
+    </div>
+
+<!--     <div class="text-right col-md-6 mb-3">
+      <button class="btn btn-primary" type="submit" (click)="bit2()" target="_blank">Bitacora 2</button>
+    </div> -->
+  </div>

@@ -1,0 +1,137 @@
+<!-- <p>calidad works!</p> -->
+<app-nav></app-nav>
+<br>
+<div class="col-md-12 mb-3">
+  <form class="needs-validation" [formGroup]="miForm">
+    <input type="hidden" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="ordenpro2" />
+    <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elaboro">
+    <input type="hidden" [(ngModel)]="cliente" readonly class="form-control-plaintext" formControlName="cliente">
+    <input type="hidden" [(ngModel)]="sucursal" readonly class="form-control-plaintext" formControlName="sucursal">
+    <div class="col-md-12 mb-3">
+      <h6 class="text-info" style="text-align: center;">Registro</h6>
+      <h6 class="text-success" style="text-align: center;">Orden Producción: {{ordendeproduccion}}</h6>
+    </div>
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Número de Parte</label>
+        <select class="form-select" formControlName="num_parte">
+          <option value="">Números de Parte</option>
+          <option *ngFor="let prt of ordersselect"
+          [value]="prt.num_parte">{{prt.num_parte}}</option>
+        </select>
+      </div>
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Cantidad</label>
+        <input type="number" min="0" [(ngModel)]="prueba" class="form-control" formControlName="cantidad"readonly/>
+      </div>
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Letra Código</label>
+        <input type="text" [(ngModel)]="codigo" class="form-control" formControlName="codigo"readonly/>
+      </div>
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Tamaño de Muestra</label>
+        <input type="number" min="0" [(ngModel)]="muestra" class="form-control" formControlName="muestra"readonly/>
+      </div>
+    </div>
+
+    <div *ngIf="numero" class="form-row">
+      <div class="col-md-2  mb-3"><label class="text-success">Piezas Aprobadas</label><input type="number" min="0" class="form-control" placeholder="No. Piezas" formControlName="piezasA"/>  </div>
+      <div class="col-md-2  mb-3"><label class="text-success">Piezas Rechazadas</label><input type="number" min="0" class="form-control" placeholder="No. piezas" formControlName="piezasR"/></div>
+      <div class="col-md-2  mb-3"><label class="text-success">Total</label><input type="number" min="0" class="form-control" placeholder="Total" formControlName="total"/></div>
+      <div class="col-md-2  mb-3"><label class="text-success">Observaciones</label><input type="text"    class="form-control" placeholder="Observaciones" formControlName="observaciones"/>  </div>
+    </div>
+
+    <div *ngIf="numero" class="form-row">
+     <div class="text-left col-md-6">
+      <button class="btn btn-primary" type="submit" (click)="postCalidad()">Insertar Información</button>
+     </div>
+    </div>
+  </form>
+</div>
+
+
+<div  class="table-responsive">
+<table class="table table-hover table-bordered table-responsive-sm" style="font-size: .7em;" id="excel-table">
+  <tr class="table-primary">
+    <th>Número de Parte</th>
+    <th>Cantidad</th>
+    <th>Letra Código</th>
+    <th>Tamaño de la muestra</th>
+    <th>Piezas Aprobadas</th>
+    <th>Piezas Rechazadas</th>
+    <th>Total</th>
+    <th>Observaciones</th>
+    <th>Fecha de Captura</th>
+    <th>Acción</th>
+
+  </tr>
+    <tr *ngFor="let information of service.infofin2"   style="font-size: .9em;">
+      <td>{{information.num_parte}}</td>
+      <td>{{information.cantidad}}</td>
+      <td>{{information.codigo}}</td>
+      <td>{{information.muestra}}</td>
+      <td>{{information.piezasA}}</td>
+      <td>{{information.piezasR}}</td>
+      <td>{{information.total}}</td>
+      <td>{{information.observaciones}}</td>
+      <td>{{information.fecha_ini|date:'medium':'UTC'}}</td>
+      <td><button class="btn btn-danger btn-sm" (click)="delateinfo(information.id_liberacion)">Eliminar</button></td>
+    </tr>
+</table>
+</div>
+
+<br>
+  <div class="col-md-12 mb-3">
+    <form [formGroup]="miForm3">
+    <h6 class="text-info" style="text-align: center;">Evaluación Final</h6>
+    <p class="text-danger">Nota: Llenar este apartado hasta haber terminado de llenar todos los números de Parte.</p>
+    <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elaboro">
+    <input type="hidden" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="ordenpro" />
+    <input type="hidden" class="form-control" [(ngModel)]="inspection" formControlName="inspection"/>
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- Producto Conforme</label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="Si" formControlName="op1">
+            <label class="form-check-label" for="inlineRadio1">Si</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio"  value="No" formControlName="op1">
+            <label class="form-check-label" for="inlineRadio2">No </label>
+          </div>
+
+        <div class="form-row">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label text-success" for="inlineRadio1">- Aplica AC </label>
+          </div>
+        </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" (click)="checksi()"  value="Si" formControlName="op2">
+            <label class="form-check-label" for="inlineRadio1">Si</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" (click)="checkno()"  value="No" formControlName="op2">
+            <label class="form-check-label" for="inlineRadio2">No</label>
+          </div>
+          <div class="form-row">
+          <div *ngIf="num2" class="col-md-2 mb-3"><label class="text-success">Número AC</label><input type="text" class="form-control" placeholder="Número AC" formControlName="numAC"/></div>
+        </div>
+          <div  class="form-row">
+          <div class="text-left col-md-6">
+           <button class="btn btn-primary" type="submit" (click)="postCalidad2()" [disabled]="!miForm3.valid">Enviar Aspectos</button>
+          </div>
+         </div>
+    </form>
+  </div>
+<!--     <h3>Respuestas Formulario</h3>
+    <pre>Valid:{{miForm.valid}}</pre>
+    <pre>{{miForm.value | json}}</pre> -->
+
+<!--     <h3>Respuestas Formulario</h3>
+    <pre>Valid:{{miForm3.valid}}</pre>
+    <pre>{{miForm3.value | json}}</pre> -->

@@ -1,0 +1,130 @@
+<!-- <p>list-inspectio works!</p> -->
+<app-nav></app-nav>
+<br>
+<div class="col-md-12 mb-3">
+  <form class="needs-validation" [formGroup]="miForm">
+
+    <input type="hidden" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="ordenpro" />
+    <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elabora">
+    <input type="hidden" ngModel="{{now|date:'dd-MM-yyyy'}}" class="form-control" formControlName="fecha" class="form-control" readonly>
+    <div class="col-md-12 mb-3">
+      <h6 class="text-info" style="text-align: center;">Lista de Inspección</h6>
+     <!--  <h6 class="text-success" style="text-align: center;">Orden Producción: {{ordendeproduccion}}</h6> -->
+    </div>
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Motivo de Inspección</label>
+        <select class="form-select" formControlName="motivo">
+          <option value=""></option>
+          <option>Verificación funcional del producto</option>
+          <option>Verificación funcional de materia prima</option>
+          <option>Verificación funcional de una especificación del cliente</option>
+        </select>
+      </div>
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Cliente</label>
+        <input type="text" class="form-control" [(ngModel)]="nombre_cliente" formControlName="cliente" readonly/>
+      </div>
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">OP/OS</label>
+        <input type="text" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="identificacion" readonly/>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Lote / No. de Parte / Especificación</label>
+        <select class="form-select" formControlName="lote">
+          <option value="">Números de Parte</option>
+          <option *ngFor="let prt of ordersselect"
+          [value]="prt.num_parte">{{prt.num_parte}}</option>
+        </select>
+      </div>
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Observaciones</label>
+        <input type="text" class="form-control" formControlName="observaciones"/>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Número</label>
+        <input type="text" class="form-control" formControlName="numero"/>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label class="text-success">Punto de Inspección</label>
+        <select class="form-select" formControlName="inspection">
+          <option value=""></option>
+          <option>Cumplimiento de la forma y aparencia del folio protector</option>
+          <option>prueba de fuerza de adherencia</option>
+        </select>
+      </div>
+      
+
+      <div class="col-md-2 mb-3">
+        <label class="text-success">Cumple</label>
+        <select class="form-select" formControlName="cumple">
+          <option value=""></option>
+          <option>Si</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-5 mb-3">
+        <label class="text-success">Comentarios</label>
+        <input type="text" class="form-control" formControlName="comentarios"/>
+      </div>
+    </div>
+    <div  class="form-row">
+      <div class="text-left col-md-6">
+       <button class="btn btn-primary" type="submit" (click)="Post()" [disabled]="!miForm.valid">Enviar Información</button>
+      </div>
+     </div>
+  </form>
+</div>
+<div *ngIf="num">
+
+<div  class="table-responsive">
+  <table class="table table-hover table-bordered table-responsive-sm" style="font-size: .7em;" id="excel-table">
+    <tr class="table-primary">
+      <th>Motivo de inspección</th>
+      <th>Elaboro</th>
+      <th>Cliente</th>
+      <th>Fecha</th>
+      <th>No. de identificación</th>
+      <th>Lote/ No. Parte/ Especificación</th>
+      <th>Observaciones</th>
+      <th>Número</th>
+      <th>Punto de Inspección</th>
+      <th>Cumple</th>
+      <th>Comentarios</th>
+      <th>Acción</th>
+
+    </tr>
+    <tr *ngFor="let information of service.lista" style="font-size: .9em;">
+      <td>{{information.motivo}}</td>
+      <td>{{information.elabora}}</td>
+      <td>{{information.cliente}}</td>
+      <td>{{information.fecha}}</td>
+      <td>{{information.identificacion}}</td>
+      <td>{{information.lote}}</td>
+      <td>{{information.observaciones}}</td>
+      <td>{{information.numero}}</td>
+      <td>{{information.inspection}}</td>
+      <td>{{information.cumple}}</td>
+      <td>{{information.comentarios}}</td>
+      <td><button class="btn btn-danger btn-sm" (click)="delateinfo(information.id_list_inspection)">Eliminar</button></td>
+    </tr>
+  </table>
+  </div>
+  <div class="col-md-6 mb-3">
+    <button class="btn btn-primary" type="submit" (click)="finalizar()">Finalizar</button>
+  </div>
+</div>
+
+<!--       <h3>Respuestas Formulario</h3>
+  <pre>Valid:{{miForm.valid}}</pre>
+  <pre>{{miForm.value | json}}</pre> -->
+

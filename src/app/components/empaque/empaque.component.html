@@ -1,0 +1,68 @@
+<!-- <p>empaque works!</p> -->
+
+<app-nav></app-nav>
+<br>
+<div class="col-md-12 mb-3">
+  <form [formGroup]="miForm">
+  <h6 class="text-info" style="text-align: center;">Empaquetado</h6>
+  <h6 class="text-success" style="text-align: center; color: #33c4a8;">Orden de Producción: {{ordendeproduccion}}</h6>
+  <input type="hidden" [(ngModel)]="name_complet" readonly class="form-control-plaintext" formControlName="elaboro">
+  <input type="hidden" class="form-control" [(ngModel)]="ordendeproduccion" formControlName="ordenpro" />
+      <div class="form-row">
+        <div class="form-check form-check-inline">
+          <label class="form-check-label text-success" for="inlineRadio1">- Etiqueta corresonde al número de parte</label>
+        </div>
+      </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="Cumple" formControlName="op1">
+          <label class="form-check-label" for="inlineRadio1">Cumple</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op1">
+          <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+        </div>
+
+      <div class="form-row">
+        <div class="form-check form-check-inline">
+          <label class="form-check-label text-success" for="inlineRadio1">- Cantidad corresponde a la orden de producción</label>
+        </div>
+      </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="Cumple" formControlName="op2">
+          <label class="form-check-label" for="inlineRadio1">Cumple</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op2">
+          <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+        </div>
+
+      <div class="form-row">
+        <div class="form-check form-check-inline">
+          <label class="form-check-label text-success" for="inlineRadio1">- Dimensión del empaque corresponde al indicado a la hoja de ayuda visual </label>
+        </div>
+      </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="Cumple" formControlName="op3">
+          <label class="form-check-label" for="inlineRadio1">Cumple</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"  value="No Cumple" formControlName="op3">
+          <label class="form-check-label" for="inlineRadio2">No Cumple</label>
+        </div>
+
+      <br>
+      <br>
+      <div class="form-group mb-3">
+        <label for="exampleFormControlTextarea1">Observaciones:</label>
+        <textarea class="form-control" rows="3" formControlName="observaciones"></textarea>
+      </div>
+      <div  class="form-row">
+        <div class="text-left col-md-6">
+         <button class="btn btn-primary" type="submit" (click)="infoEmpaque()" [disabled]="!miForm.valid">Enviar Aspectos</button>
+        </div>
+       </div>
+  </form>
+</div>
+<!--     <h3>Respuestas Formulario</h3>
+  <pre>Valid:{{miForm.valid}}</pre>
+  <pre>{{miForm.value | json}}</pre> -->
