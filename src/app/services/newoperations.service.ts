@@ -12,7 +12,7 @@ bitcortedisco!: bitcortedisco[];
 bitrebobinado!: bitrebobinado[];
 bitroquelado!: bitroquelado[];
 bdproduction!: bdproduction[];
-  private URL = 'https://server-portal2.vercel.app/';
+  private URL = 'https://server-portal2.vercel.app';
 //private URL = 'https://server-production-corma.herokuapp.com';
 //private URL = 'https://server-production-mercantil-corma.onrender.com';
 
