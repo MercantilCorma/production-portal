@@ -12,9 +12,9 @@ bitcortedisco!: bitcortedisco[];
 bitrebobinado!: bitrebobinado[];
 bitroquelado!: bitroquelado[];
 bdproduction!: bdproduction[];
-//private URL = 'http://localhost:3000';
+  private URL = 'https://server-portal2.vercel.app/';
 //private URL = 'https://server-production-corma.herokuapp.com';
-  private URL = 'https://server-production-mercantil-corma.onrender.com';
+//private URL = 'https://server-production-mercantil-corma.onrender.com';
 
 
   constructor(private http: HttpClient, private router:Router) { }
