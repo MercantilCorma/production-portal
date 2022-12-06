@@ -13,7 +13,7 @@ import { FormGroup } from '@angular/forms';
   providedIn: 'root',
 })
 export class AuthService {
-  private URL = 'https://server-portal2.vercel.app/';
+  private URL = 'https://server-portal2.vercel.app';
 //private URL = 'https://server-production-corma.herokuapp.com';
 //private URL = 'https://server-production-mercantil-corma.onrender.com';
   authToken: any;
